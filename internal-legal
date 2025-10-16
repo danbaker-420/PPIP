@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Font Awesome for the caret icon in the dropdowns -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- ADDED: Font used in the 3D Text Sprites -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         /* Procore Custom CSS Variables and Fonts */
@@ -74,7 +76,8 @@
         .sidenav-title, .sidenav-title.text-procore-black, .sidenav-title.text-gray-700 { color: var(--procore-light-text) !important; }
         .sidenav-title-script { font-family: 'Procore Sans', sans-serif; font-weight: 700 !important; letter-spacing: 0; text-shadow: none; font-style: normal; }
         .sidenav-title.text-xl { font-size: 1.5rem; padding-bottom: 0px !important; }
-        .sidenav-title.text-lg { font-weight: 500; }
+        /* UPDATED: Changed text size to text-base */
+        .sidenav-title.text-lg { font-weight: 500; font-size: 1rem; }
         .sidenav-section-title { color: var(--procore-light-text); padding: 8px 16px; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 1rem; }
         .sidenav a, .dropdown-btn { padding: 10px 16px; text-decoration: none; font-size: 15px; color: var(--procore-light-text); border: none; background: none; width: 100%; cursor: pointer; outline: none; transition: background-color 0.2s, color 0.2s; display: flex; align-items: center; text-align: left; border-radius: 4px; }
         .sidenav a i.ph-magnifying-glass-duotone, .sidenav a i.ph-bell-duotone, .sidenav a i.fa { margin-right: 8px; color: var(--procore-black); }
@@ -110,7 +113,8 @@
         .header-title-block { display: flex; align-items: center; }
         .header-logo { height: 40px; width: auto; object-fit: contain; margin-right: 1rem; }
         #fixed-nav { background-color: var(--procore-orange); height: var(--nav-fixed-height); width: 100%; z-index: 900; position: absolute; top: var(--header-fixed-height); }
-        #carousel-canvas { display: block; width: 100%; height: var(--carousel-fixed-height); background-color: var(--procore-stone); position: absolute; top: calc(var(--header-fixed-height) + var(--nav-fixed-height)); }
+        #carousel-canvas { background-color: var(--procore-stone); position: absolute; top: calc(var(--header-fixed-height) + var(--nav-fixed-height)); 
+                           display: block; width: 100%; height: var(--carousel-fixed-height); }
         
         #content-wrapper {
             /* Pushes content below the fixed elements on desktop */
@@ -195,7 +199,53 @@
         .content-section { padding: 2rem; background-color: white; border: 1px solid #ddd; border-top: none; border-radius: 0 0 0.5rem 0.5rem; margin-bottom: 2rem; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.3s ease-out; }
         .back-to-top { display: block; text-align: right; margin-top: 2rem; color: var(--procore-orange); font-weight: 600; text-decoration: none; transition: color 0.2s; }
         .back-to-top:hover { color: #e04400; text-decoration: underline; }
-        .team-card { background-color: var(--procore-stone); color: var(--procore-dark-text); padding: 1.5rem; border-radius: 0.75rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); border-left: 6px solid var(--procore-orange); transition: transform 0.2s; display: flex; flex-direction: column; height: 100%; justify-content: space-between; min-height: 220px; }
+        .team-card { 
+            background-color: var(--procore-stone); 
+            color: var(--procore-dark-text); 
+            padding: 1.5rem; 
+            border-radius: 0.75rem; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            border-left: 6px solid var(--procore-orange); 
+            transition: transform 0.2s; 
+            display: flex; 
+            flex-direction: column; 
+            height: 100%; 
+            justify-content: space-between; 
+            min-height: 220px; 
+        }
+        /* NEW: Profile picture styling for IMG tag */
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--procore-orange);
+            background-color: #fff;
+            flex-shrink: 0;
+        }
+        
+        /* NEW: Placeholder style for text initials (if no image loads) */
+        .initials-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--procore-black);
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            border: 3px solid var(--procore-orange);
+        }
+        .team-card-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
         #team-content .grid { display: grid; grid-template-rows: auto; align-items: stretch; }
         .team-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); }
         .team-card h3 { color: var(--procore-black); font-weight: 700; font-size: 1.25rem; }
@@ -213,8 +263,10 @@
     <!-- ---------------------------------------------------- -->
     <div class="sidenav">
         <!-- ADDED sidenav-title-script CLASS and updated font size/style -->
-        <p class="sidenav-title sidenav-title-script text-xl font-bold pt-4">LRC Internal</p>
-        <p class="sidenav-title sidenav-title-script text-lg font-normal pb-3 text-gray-700">Product, Privacy, & IP</p>
+        <!-- UPDATED: Changed font size to text-base to make it smaller -->
+        <p class="sidenav-title sidenav-title-script text-base font-bold pt-4">Legal, Regulatory, & Compliance</p>
+        <!-- UPDATED: Changed font size to text-base to make it smaller -->
+        <p class="sidenav-title sidenav-title-script text-base font-normal pb-3 text-gray-700">Product, Privacy, & IP</p>
         <hr class="border-t border-black/30 mx-4">
         
         <p class="sidenav-section-title">Quick Links</p>
@@ -257,9 +309,10 @@
             <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942567/Corporate+Securities+M+A" target="_blank" rel="noopener noreferrer">Corporate, Securities, & M&A</a>
             <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942131/Go-to-Market" target="_blank" rel="noopener noreferrer">Commercial Legal</a>
             <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802909360/Employment+Litigation+Ethics+Compliance" target="_blank" rel="noopener noreferrer">Employment, Litigation, Ethics & Compliance</a>
-            <a href="#" class="active bg-black/50 font-semibold">Legal Operations</a>
-            <!-- Current Page Link -->
-            <a href="#" class="active bg-black/50 font-semibold">Product, Privacy, & IP</a>
+            <!-- UPDATED URL for Legal Operations -->
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942240/Legal+Operations">Legal Operations</a>
+            <!-- UPDATED URL for Product, Privacy, & IP (Active Page Link) -->
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942349/Product+Privacy+Intellectual+Property" class="active bg-black/50 font-semibold">Product, Privacy, & IP</a>
         </div>
         
         <button class="dropdown-btn">
@@ -368,8 +421,17 @@
                 </h2>
                 <div id="about-content" class="content-section">
                     <div class="text-lg space-y-4">
-                        <p>We provide counseling for <b>product</b>, <b>R&D</b>, <b>UX</b>, and <b>open source</b>. We give guidance in our <b>beta program</b> and <b>app marketplace</b> space.</p>
-                        <p>Contact us early and often at the <a href="https://procoretech.atlassian.net/servicedesk/customer/portal/114" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:text-orange-800 font-semibold transition">LRC Service Desk</a> when you have questions about <b>Product</b>, <b>R&D</b>, <b>UX</b>, <b>Open Source Counseling</b>, <b>App Marketing</b>, <b>Beta Program</b>, <b>TM</b> (Trademark), <b>trade secret</b>, <b>domains</b>, <b>Patent Portfolios</b>, or <b>IP</b> (Intellectual Property).</p>
+                        <!-- P1: Contact Us - UPDATED with FA Wrench icon -->
+                        <p>Contact us early and often at the <a href="https://procoretech.atlassian.net/servicedesk/customer/portal/114" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:text-orange-800 font-semibold transition"><i class="fa fa-wrench mr-1"></i>LRC Service Desk</a> when you have questions about <b>Product</b>, <b>Privacy</b>, <b>IP</b> (Intellectual Property), <b>Trademark (TM)</b>, <b>trade secret</b>, <b>domains</b>, or <b>Patent Portfolios</b>.</p>
+                        
+                        <!-- P2: R&D/UX Counseling -->
+                        <p>Additionally, we counsel on all aspects of core <b>product</b>, <b>R&D</b>, <b>UX</b>, and <b>open source</b>, and provide guidance in our <b>beta program</b> and <b>app marketplace</b> space.</p>
+                        
+                        <!-- P3: Marketing Requests - NEWLY UPDATED to use slack:// deep link -->
+                        <p>For marketing related requests, please reach out to us at <a href="slack://channel?team=T01234567&id=C00000000/legal-marketing-review" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:text-orange-800 font-semibold transition"><i class="fa fa-slack mr-1"></i>#legal-marketing-review</a>.</p>
+
+                        <!-- P4: FinTech/LRM Support (Original P3) -->
+                        <p>We are <b>dedicated generalist support</b> for all Procore <b>FinTech BUs</b>, including <b>Procore Pay</b>. We provide subject matter expertise, product counseling, advice, transactional support, and fulfillment operations to the <b>Lien Rights Management (LRM) business</b>.</p>
                     </div>
                     <!-- This link uses native HTML hash jump -->
                     <a href="#home" class="back-to-top">Back to Top &uarr;</a>
@@ -388,56 +450,111 @@
 
                         <!-- Team Member 1: Paul Kafadar -->
                         <div class="searchable-item team-card">
-                            <div>
-                                <h3 class="text-white">Paul Kafadar</h3>
-                                <p class="text-sm">(Pacific)</p>
+                            <div class="flex items-center space-x-4 mb-4">
+                                <!-- UPDATED: Used the stable public URL -->
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/C5603AQEE4gf5sTCXrQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1537637343639?e=1762387200&v=beta&t=BHwlT-3QHWZlyajjjU8UgnLR-Sw0GUXy9G04tDO_Lyc" 
+                                    alt="Paul Kafadar Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <!-- Text fallback in case image fails -->
+                                <div class="initials-placeholder hidden">PK</div>
+                                <div>
+                                    <h3 class="text-white">Paul Kafadar</h3>
+                                    <p class="text-sm text-white/80">(Pacific)</p>
+                                </div>
                             </div>
-                            <p class="mt-4 title">Vice President & Associate General Counsel, Product, Privacy, & IP</p>
+                            <p class="title">Vice President & Associate General Counsel, Product, Privacy, & IP</p>
                         </div>
 
                         <!-- Team Member 2: Jordan Ekelin -->
                         <div class="searchable-item team-card">
-                            <div>
-                                <h3 class="text-white">Jordan Ekelin</h3>
-                                <p class="text-sm">(Central)</p>
+                            <div class="flex items-center space-x-4 mb-4">
+                                <!-- NO URL PROVIDED - Defaulting to Initials -->
+                                <div class="initials-placeholder">JE</div>
+                                <div>
+                                    <h3 class="text-white">Jordan Ekelin</h3>
+                                    <p class="text-sm text-white/80">(Central)</p>
+                                </div>
                             </div>
-                            <p class="mt-4 title">Director & Assistant General Counsel, Product & Partnerships</p>
+                            <p class="title">Director & Assistant General Counsel, Product & Partnerships</p>
                         </div>
 
                         <!-- Team Member 3: Mike Barnett -->
                         <div class="searchable-item team-card">
-                            <div>
-                                <h3 class="text-white">Mike Barnett</h3>
-                                <p class="text-sm">(Eastern)</p>
+                            <div class="flex items-center space-x-4 mb-4">
+                                <!-- UPDATED: Used the stable public URL -->
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/C4E03AQEKnfMDM1U2ow/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1586134330462?e=1762387200&v=beta&t=Swxffoi9ij-GdWU-NVUt3qS_Y5WCwCiyJ41kqkaVcUs" 
+                                    alt="Mike Barnett Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">MB</div>
+                                <div>
+                                    <h3 class="text-white">Mike Barnett</h3>
+                                    <p class="text-sm text-white/80">(Eastern)</p>
+                                </div>
                             </div>
-                            <p class="mt-4 title">Assistant General Counsel, Product & Fintech</p>
+                            <p class="title">Assistant General Counsel, Product & Fintech</p>
                         </div>
 
                         <!-- Team Member 4: Matt Altaras -->
                         <div class="searchable-item team-card">
-                            <div>
-                                <h3 class="text-white">Matt Altaras</h3>
-                                <p class="text-sm"></p>
+                            <div class="flex items-center space-x-4 mb-4">
+                                <!-- UPDATED: Added IMG tag with Matt's LinkedIn URL -->
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/C4E03AQGEmhHFZzOkYQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1633468037607?e=1762387200&v=beta&t=JYwvEHddb1yuaas9IhVtDmT1hVvJHeGpChmXAa8DY54" 
+                                    alt="Matt Altaras Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">MA</div>
+                                <div>
+                                    <h3 class="text-white">Matt Altaras</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
                             </div>
-                            <p class="mt-4 title">Director, Assistant General Counsel, Data Protection</p>
+                            <p class="title">Director, Assistant General Counsel, Data Protection</p>
                         </div>
                         
                         <!-- Team Member 5: Alex Benarroche -->
                         <div class="searchable-item team-card">
-                            <div>
-                                <h3 class="text-white">Alex Benarroche</h3>
-                                <p class="text-sm"></p>
+                            <div class="flex items-center space-x-4 mb-4">
+                                <!-- UPDATED: Added IMG tag with Alex's LinkedIn URL -->
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/C4E03AQH2-WhwIksXHg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1593105505813?e=1762387200&v=beta&t=72QAB9CoesZ2uVh7y9jBgeB9z6bXm_yvkc-Dx1mOzuA" 
+                                    alt="Alex Benarroche Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">AB</div>
+                                <div>
+                                    <h3 class="text-white">Alex Benarroche</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
                             </div>
-                            <p class="mt-4 title">Counsel - Lien Rights Management</p>
+                            <p class="title">Counsel - Lien Rights Management</p>
                         </div>
                         
                         <!-- Team Member 6: Hannah Newsom -->
                         <div class="searchable-item team-card">
-                            <div>
-                                <h3 class="text-white">Hannah Newsom</h3>
-                                <p class="text-sm"></p>
+                            <div class="flex items-center space-x-4 mb-4">
+                                <!-- UPDATED: Added IMG tag with Hannah's LinkedIn URL -->
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/C4E03AQEgXn3ylduQRA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1643726427726?e=1762387200&v=beta&t=hrqvCwpQdbPLZg6jiv2GvkjJOPy4FpQEp9OuER5HyDw" 
+                                    alt="Hannah Newsom Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">HN</div>
+                                <div>
+                                    <h3 class="text-white">Hannah Newsom</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
                             </div>
-                            <p class="mt-4 title">Lien Rights Management Regulatory & Compliance Specialist</p>
+                            <p class="title">Lien Rights Management Regulatory & Compliance Specialist</p>
                         </div>
 
                     </div>
@@ -491,6 +608,14 @@
     <script>
         
         let renderer, camera, scene, cubes = [];
+        // ADDED: Global variable for the background plane and texture loader
+        let backgroundPlane; 
+        const textureLoader = new THREE.TextureLoader();
+        
+        // Primary background will be a light grey solid color (Guaranteed no text).
+        const backgroundImage = 'https://placehold.co/1200x200/D0D0D0/D0D0D0'; 
+        // Watermark will be a slightly darker grey color (Guaranteed no text) for contrast.
+        const patentDiagramUrl = 'https://placehold.co/2000x1000/A0A0A0/A0A0A0'; 
         const mainContent = document.querySelector('.main');
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -621,8 +746,7 @@
                 filterContent(e.target.value);
             });
 
-            // ------------------- FIX: Prevent Hash Links from Reloading Page -------------------
-            // We only need to prevent the default action for in-page hash links.
+            // ------------------- FIX: Prevent Hash Links from Reloading Page and Add Smooth Scroll -------------------
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     const hash = this.getAttribute('href');
@@ -632,13 +756,12 @@
                         e.preventDefault();
                         
                         // Find the target element
-                        const targetElement = document.querySelector(hash);
+                            const targetElement = document.querySelector(hash);
                         
                         if (targetElement) {
-                            // Use scrollIntoView on the target element. 
-                            // The scroll-padding-top CSS property on the .main container handles the offset.
+                            // UPDATED: Changed behavior to 'smooth'
                             targetElement.scrollIntoView({
-                                behavior: 'instant', // Ensure instantaneous jump as requested
+                                behavior: 'smooth', 
                                 block: 'start'
                             });
                         }
@@ -653,29 +776,30 @@
             const canvas = document.getElementById('carousel-canvas');
             
             function updateCanvasSize() {
-                // Since the fixed elements are now positioned absolutely within the scrollable main container,
-                // we use the main container's width (or the window width for max space)
                 const newWidth = mainContent.clientWidth;
-                renderer.setSize(newWidth, 200);
-                camera.aspect = newWidth / 200;
-                camera.updateProjectionMatrix();
+                if (renderer) {
+                    renderer.setSize(newWidth, 200);
+                    camera.aspect = newWidth / 200;
+                    camera.updateProjectionMatrix();
+                }
             }
 
             scene = new THREE.Scene();
+            
+            // Fallback color if background texture fails
             scene.background = new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue('--procore-stone'));
 
             camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / 200, 0.1, 1000);
-            camera.position.z = 4.2; 
+            camera.position.z = 5.5; 
 
             renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
             
             function makeTextSprite(message, color) {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
-                canvas.width = 128;
-                canvas.height = 128;
+                canvas.width = 256; 
+                canvas.height = 256;
                 
-                // INCREASED FONT SIZE from 110px to 140px
                 context.font = "Bold 140px Orbitron, sans-serif"; 
                 context.fillStyle = color;
                 context.textAlign = "center";
@@ -686,16 +810,17 @@
                 const material = new THREE.SpriteMaterial({ map: texture, color: 0xffffff });
                 const sprite = new THREE.Sprite(material);
                 
-                // INCREASED SCALE from 2.5 to 3.0 to match the larger font
-                sprite.scale.set(3.0, 3.0, 1);
+                // FINAL UPDATE: Increased scale to guarantee visibility
+                sprite.scale.set(10.0, 10.0, 1);
                 return sprite;
             }
 
+            // UPDATED: Spaced the cubes further apart
             const excitingAreas = [
-                { title: "Product", letter: "P", color: 0xff5200, position: -3.5 },
-                { title: "Privacy", letter: "P", color: 0x000000, position: -1.25 },
-                { title: "Intellectual Property", letter: "I", color: 0xff5200, position: 1.25 },
-                { title: "Patent Portfolios", letter: "P", color: 0x000000, position: 3.5 }
+                { title: "Product", letter: "P", color: 0xff5200, position: -5.5 }, 
+                { title: "Privacy", letter: "P", color: 0x000000, position: -1.8 }, 
+                { title: "Intellectual Property", letter: "I", color: 0xff5200, position: 1.8 }, 
+                { title: "Patent Portfolios", letter: "P", color: 0x000000, position: 5.5 }
             ];
 
             function initCarousel() {
@@ -706,6 +831,51 @@
                 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
                 directionalLight.position.set(0, 5, 5);
                 scene.add(directionalLight);
+                
+                
+                // 1. SET PRIMARY BACKGROUND TO TEXTURE (guaranteed no text, light grey)
+                textureLoader.load(backgroundImage, 
+                    function(texture) {
+                        texture.colorSpace = THREE.SRGBColorSpace;
+                        scene.background = texture;
+                    },
+                    undefined,
+                    function(err) {
+                        console.error('Error loading background image:', err);
+                        // Fallback to solid color if image fails
+                        scene.background = new THREE.Color(0xD0D0D0); // Use the target light grey color
+                    }
+                );
+                
+                // 2. RE-ADDED WATERMARK LAYER (guaranteed no text, slightly darker grey for subtle contrast)
+                textureLoader.load(patentDiagramUrl, 
+                    // Callback function when the texture is loaded
+                    function(texture) {
+                        texture.colorSpace = THREE.SRGBColorSpace;
+                        
+                        const backgroundGeometry = new THREE.PlaneGeometry(20, 10); // Large plane, 2:1 ratio
+                        const backgroundMaterial = new THREE.MeshBasicMaterial({
+                            map: texture,
+                            transparent: true,
+                            opacity: 0.3, // INCREASED OPACITY to 0.3
+                            side: THREE.DoubleSide
+                        });
+
+                        backgroundPlane = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
+                        backgroundPlane.position.z = -1; // Place behind the cubes
+                        backgroundPlane.rotation.z = -Math.PI * 0.05; // Slightly angled
+                        backgroundPlane.position.y = -1;
+                        scene.add(backgroundPlane);
+                    },
+                    // Placeholder for progress (optional)
+                    undefined,
+                    // Error handling for texture loading
+                    function(err) {
+                        console.error('Error loading patent diagram texture:', err);
+                    }
+                );
+                
+                // --- END BACKGROUND SETUP ---
 
                 const width = 2.0;
                 const height = 3.0;
@@ -737,6 +907,7 @@
                     const spriteColor = area.color === 0x000000 ? 'white' : 'black';
                     const sprite = makeTextSprite(area.letter, spriteColor);
                     
+                    // The sprite scale now ensures the letter is much larger
                     sprite.position.set(0, 0, 0.41); 
                     
                     cube.add(sprite);
@@ -748,6 +919,12 @@
             function animate() {
                 animationFrameId = requestAnimationFrame(animate);
 
+                // ADDED: Subtle animation for the background plane
+                if (backgroundPlane) {
+                    backgroundPlane.rotation.z += 0.0005; // INCREASED SPEED to 0.0005
+                    backgroundPlane.position.x = Math.sin(Date.now() * 0.0001) * 0.5;
+                }
+                
                 cubes.forEach(cube => {
                     cube.rotation.y += cube.userData.rotationSpeed * 0.5;
                     cube.rotation.x += cube.userData.rotationSpeed / 4; 
@@ -759,6 +936,7 @@
                     cube.scale.x = cube.scale.y = cube.scale.z = scaleFactor;
                 });
 
+                // ADDED Check: Ensure renderer exists before rendering
                 if (renderer) {
                     renderer.render(scene, camera);
                 }
@@ -780,4 +958,3 @@
     </script>
 </body>
 </html>
-

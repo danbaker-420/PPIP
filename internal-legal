@@ -396,6 +396,16 @@
 
         <!-- CAROUSEL BANNER (Simple 3D Animation Placeholder) -->
         <canvas id="carousel-canvas"></canvas>
+
+        <!-- MODIFIED: P P I P Text Overlay is now centered -->
+        <div id="legal-ops-text" 
+            class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none" 
+            style="z-index: 950; top: calc(var(--header-fixed-height) + var(--nav-fixed-height) + 100px);"> 
+            <p class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-widest text-center p-3 rounded-lg bg-white/70 shadow-lg" 
+                style="font-family: 'Orbitron', sans-serif; color: var(--procore-black); text-shadow: 1px 1px 2px rgba(0,0,0,0.1); border-left: 4px solid var(--procore-orange); border-right: 4px solid var(--procore-orange);">
+                P P I P
+            </p>
+        </div>
         
         <!-- UPDATED: Dedicated 24px buffer of white space -->
         <div class="h-6" style="background-color: #f7f7f7;"></div> 
@@ -681,7 +691,7 @@
 
                 // Initial state: Expanded
                 header.classList.add('active');
-                icon.classList.replace('ph-plus-circle-fill', 'ph-minus-circle-fill');
+                icon.classList.replace('ph-minus-circle-fill', 'ph-plus-circle-fill');
                 content.style.maxHeight = content.scrollHeight + 'px';
                 content.style.opacity = '1';
 
@@ -771,7 +781,7 @@
             // ------------------- END FIX -------------------
 
 
-            // ------------------- CAROUSEL (3D Mock) LOGIC -------------------
+            // ------------------- CAROUSEL (3D Mock) LOGIC - MODIFIED FOR LEGAL OPS BANNER -------------------
             
             const canvas = document.getElementById('carousel-canvas');
             
@@ -794,33 +804,13 @@
 
             renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
             
-            function makeTextSprite(message, color) {
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                canvas.width = 256; 
-                canvas.height = 256;
-                
-                context.font = "Bold 140px Orbitron, sans-serif"; 
-                context.fillStyle = color;
-                context.textAlign = "center";
-                context.textBaseline = "middle";
-                context.fillText(message, canvas.width / 2, canvas.height / 2 + 10);
-                
-                const texture = new THREE.CanvasTexture(canvas);
-                const material = new THREE.SpriteMaterial({ map: texture, color: 0xffffff });
-                const sprite = new THREE.Sprite(material);
-                
-                // FINAL UPDATE: Increased scale to guarantee visibility
-                sprite.scale.set(10.0, 10.0, 1);
-                return sprite;
-            }
+            // NOTE: makeTextSprite function removed as it is no longer used for the 3D cube labels.
 
-            // UPDATED: Spaced the cubes further apart
+            // MODIFIED: Centered three abstract cubes around x=0 (from new Legal Ops code)
             const excitingAreas = [
-                { title: "Product", letter: "P", color: 0xff5200, position: -5.5 }, 
-                { title: "Privacy", letter: "P", color: 0x000000, position: -1.8 }, 
-                { title: "Intellectual Property", letter: "I", color: 0xff5200, position: 1.8 }, 
-                { title: "Patent Portfolios", letter: "P", color: 0x000000, position: 5.5 }
+                { title: "Legal Tech", color: 0xff5200, position: -1.8 }, 
+                { title: "Process", color: 0x000000, position: 0.0 }, 
+                { title: "Strategy", color: 0xff5200, position: 1.8 }
             ];
 
             function initCarousel() {
@@ -904,13 +894,7 @@
                     cubes.push(cube);
                     scene.add(cube);
                     
-                    const spriteColor = area.color === 0x000000 ? 'white' : 'black';
-                    const sprite = makeTextSprite(area.letter, spriteColor);
-                    
-                    // The sprite scale now ensures the letter is much larger
-                    sprite.position.set(0, 0, 0.41); 
-                    
-                    cube.add(sprite);
+                    // The sprite logic is intentionally removed here, as the text is now an HTML overlay.
                 });
             }
 

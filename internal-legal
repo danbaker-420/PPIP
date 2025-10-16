@@ -1,1 +1,783 @@
-# PPIP
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product, Privacy, & Intellectual Property - LRC</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Font Awesome for the caret icon in the dropdowns -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <style>
+        /* Procore Custom CSS Variables and Fonts */
+        :root {
+            --procore-orange: #ff5200;
+            --procore-black: #000000;
+            --procore-stone: #ece0d6;
+            --procore-light-text: #ffffff;
+            --procore-dark-text: #333333; /* Used for text on light backgrounds */
+            --header-fixed-height: 80px;
+            --nav-fixed-height: 50px;
+            --carousel-fixed-height: 200px;
+            
+            /* UPDATED: Visual buffer space below the carousel (24px) */
+            --buffer-height: 24px; 
+            
+            /* UPDATED total height: 80 + 50 + 200 + 24 = 354px */
+            --total-fixed-height: 354px; 
+        }
+
+        /* Procore Sans Fallback Stack - Cannot load proprietary font directly */
+        @font-face {
+            font-family: 'Procore Sans';
+            src: local('Arial'), local('Helvetica'), sans-serif;
+            /* Placeholder: If the font were available, it would be loaded here */
+        }
+        
+        /* ------------------- DESKTOP DASHBOARD LAYOUT (DEFAULT) ------------------- */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Procore Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: #f7f7f7;
+            color: var(--procore-dark-text);
+            
+            /* DESKTOP: FLEX container, fixed height, no external scroll */
+            display: flex;
+            height: 100vh;
+            overflow: hidden; 
+        }
+        /* ------------------- END DESKTOP FIX ------------------- */
+
+
+        /* ------------------- DYNAMIC COMMAND PANEL (Sidebar) ------------------- */
+        .sidenav {
+            height: 100%; 
+            width: 320px;
+            position: relative; 
+            z-index: 1000;
+            background-color: var(--procore-orange); 
+            overflow-x: hidden;
+            overflow-y: auto; 
+            border-right: 2px solid #e04400;
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem 0.5rem;
+            flex-shrink: 0; 
+        }
+
+        /* Sidebar Titles/Links/Cards Styles (unchanged) */
+        .sidenav-title, .sidenav-title.text-procore-black, .sidenav-title.text-gray-700 { color: var(--procore-light-text) !important; }
+        .sidenav-title-script { font-family: 'Procore Sans', sans-serif; font-weight: 700 !important; letter-spacing: 0; text-shadow: none; font-style: normal; }
+        .sidenav-title.text-xl { font-size: 1.5rem; padding-bottom: 0px !important; }
+        .sidenav-title.text-lg { font-weight: 500; }
+        .sidenav-section-title { color: var(--procore-light-text); padding: 8px 16px; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 1rem; }
+        .sidenav a, .dropdown-btn { padding: 10px 16px; text-decoration: none; font-size: 15px; color: var(--procore-light-text); border: none; background: none; width: 100%; cursor: pointer; outline: none; transition: background-color 0.2s, color 0.2s; display: flex; align-items: center; text-align: left; border-radius: 4px; }
+        .sidenav a i.ph-magnifying-glass-duotone, .sidenav a i.ph-bell-duotone, .sidenav a i.fa { margin-right: 8px; color: var(--procore-black); }
+        .dropdown-btn { display: flex; justify-content: space-between; }
+        .sidenav a:hover, .dropdown-btn:hover { background-color: var(--procore-black); color: var(--procore-light-text); }
+        .dropdown-btn.active { background-color: var(--procore-black); color: var(--procore-light-text); font-weight: 600; }
+        .dropdown-btn.active .fa-caret-down { color: var(--procore-light-text); }
+        .dropdown-container { display: none; background-color: rgba(0, 0, 0, 0.2); padding-left: 10px; border-left: 2px solid var(--procore-black); }
+        .dropdown-container a { color: var(--procore-light-text); }
+        .dropdown-container a:hover { background-color: rgba(255, 255, 255, 0.1); color: var(--procore-light-text); }
+        .sidenav-card { background-color: var(--procore-black); color: var(--procore-light-text); padding: 15px; margin: 0 8px 10px 8px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s; display: flex; align-items: center; border-left: 6px solid var(--procore-orange); }
+        .sidenav-card:hover { background-color: #333; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
+        .sidenav-card a { padding: 0; background: none; color: var(--procore-light-text); font-weight: 600; font-size: 16px; display: flex; align-items: center; width: 100%; }
+        .sidenav-card i.fa { color: var(--procore-orange) !important; margin-right: 12px; width: 32px; text-align: center; transition: color 0.2s; }
+        .sidenav-card:hover i.fa { color: var(--procore-orange) !important; }
+        .sidenav-title { padding: 0 16px 8px; text-align: left; }
+
+
+        /* ------------------- MAIN CONTENT LAYOUT ------------------- */
+        .main {
+            /* DESKTOP: Only this section scrolls internally */
+            flex-grow: 1;
+            padding: 0;
+            min-height: 100vh;
+            overflow-y: auto; 
+            position: relative; 
+            scroll-padding-top: var(--total-fixed-height); 
+        }
+
+        /* ------------------- FIXED HEADER & NAV (DESKTOP) ------------------- */
+        /* These elements are absolutely positioned *within* the scrolling .main container on desktop */
+        #fixed-header { background-color: var(--procore-black); height: var(--header-fixed-height); width: 100%; z-index: 900; position: absolute; top: 0; }
+        .header-title-block { display: flex; align-items: center; }
+        .header-logo { height: 40px; width: auto; object-fit: contain; margin-right: 1rem; }
+        #fixed-nav { background-color: var(--procore-orange); height: var(--nav-fixed-height); width: 100%; z-index: 900; position: absolute; top: var(--header-fixed-height); }
+        #carousel-canvas { display: block; width: 100%; height: var(--carousel-fixed-height); background-color: var(--procore-stone); position: absolute; top: calc(var(--header-fixed-height) + var(--nav-fixed-height)); }
+        
+        #content-wrapper {
+            /* Pushes content below the fixed elements on desktop */
+            padding-top: var(--total-fixed-height); 
+            padding-bottom: 2rem;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        
+        #content-wrapper > main > section:first-child { margin-top: 0; }
+        
+        /* ------------------- RESPONSIVENESS (MOBILE/TABLET) ------------------- */
+        @media screen and (max-width: 1024px) {
+            /* 1. BODY: Switches to standard scrolling page */
+            body {
+                display: block;
+                height: auto;
+                overflow-y: auto;
+                /* Remove fixed height */
+                min-height: 100vh;
+            }
+            
+            /* 2. SIDEBAR: Becomes full-width and scrolls away */
+            .sidenav {
+                width: 100%;
+                height: auto;
+                position: relative; 
+                overflow-y: visible;
+                padding: 1rem 0;
+                box-shadow: none;
+                order: 1; /* Ensure sidebar is at the top of the mobile stack */
+            }
+            
+            /* 3. MAIN CONTENT: Switches to natural flow */
+            .main {
+                overflow-y: visible; /* Content scrolls naturally with page */
+                min-height: auto;
+                position: relative; /* Must be relative now */
+                order: 3; /* Appears after header/carousel/nav/sidebar */
+                padding-top: 0 !important;
+            }
+            
+            /* 4. FIXED HEADER/CAROUSEL: Reset positioning to relative flow */
+            /* These elements now stack naturally before the sidebar */
+            #fixed-header, #fixed-nav, #carousel-canvas {
+                position: relative !important;
+                top: auto !important;
+                height: auto !important; /* Allow height to be determined by content or mobile styles */
+            }
+            
+            /* 5. MOBILE STICKY NAV: Make the Nav Bar sticky for easy access */
+            #fixed-nav {
+                position: sticky !important;
+                top: 0;
+                z-index: 1050; /* Above all other content */
+            }
+            
+            /* 6. CONTENT WRAPPER: Remove desktop padding */
+            #content-wrapper {
+                padding-top: 0 !important;
+            }
+            
+            /* 7. MOBILE VISUAL REFINEMENT */
+            /* Ensure the mobile search bar is visible */
+            .main > div:first-child.flex.md\:hidden {
+                display: flex !important;
+            }
+            
+            /* Hide desktop search bar */
+            #fixed-header .hidden.md\:flex {
+                display: none !important;
+            }
+            
+            /* Mobile header text size adjustment */
+            #fixed-header h1 {
+                font-size: 1.25rem;
+            }
+        }
+        /* ------------------- COLLAPSIBLE SECTION STYLING (unchanged) ------------------- */
+        .collapsible { cursor: pointer; padding: 1.5rem 2rem; margin-bottom: 0; background-color: var(--procore-stone); color: var(--procore-black); border: 1px solid #ddd; border-bottom: none; transition: background-color 0.2s, color 0.2s; display: flex; justify-content: space-between; align-items: center; font-size: 1.5rem; font-weight: 700; border-radius: 0.5rem 0.5rem 0 0; }
+        .collapsible:hover { background-color: #e6dacd; /* Lighter stone */ }
+        .content-section { padding: 2rem; background-color: white; border: 1px solid #ddd; border-top: none; border-radius: 0 0 0.5rem 0.5rem; margin-bottom: 2rem; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.3s ease-out; }
+        .back-to-top { display: block; text-align: right; margin-top: 2rem; color: var(--procore-orange); font-weight: 600; text-decoration: none; transition: color 0.2s; }
+        .back-to-top:hover { color: #e04400; text-decoration: underline; }
+        .team-card { background-color: var(--procore-stone); color: var(--procore-dark-text); padding: 1.5rem; border-radius: 0.75rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); border-left: 6px solid var(--procore-orange); transition: transform 0.2s; display: flex; flex-direction: column; height: 100%; justify-content: space-between; min-height: 220px; }
+        #team-content .grid { display: grid; grid-template-rows: auto; align-items: stretch; }
+        .team-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); }
+        .team-card h3 { color: var(--procore-black); font-weight: 700; font-size: 1.25rem; }
+        .team-card p { color: var(--procore-dark-text); }
+        .team-card .title { color: var(--procore-orange); font-weight: 600; font-size: 1rem; }
+
+    </style>
+</head>
+<body>
+    <!-- Anchor for basic HTML jump to top -->
+    <a id="home"></a>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- DYNAMIC COMMAND PANEL (Sidebar) -->
+    <!-- ---------------------------------------------------- -->
+    <div class="sidenav">
+        <!-- ADDED sidenav-title-script CLASS and updated font size/style -->
+        <p class="sidenav-title sidenav-title-script text-xl font-bold pt-4">LRC Internal</p>
+        <p class="sidenav-title sidenav-title-script text-lg font-normal pb-3 text-gray-700">Product, Privacy, & IP</p>
+        <hr class="border-t border-black/30 mx-4">
+        
+        <p class="sidenav-section-title">Quick Links</p>
+        <!-- Quick Links as Cards -->
+        <div class="space-y-2 px-2">
+            <!-- LRC Service Desk Card -->
+            <div class="sidenav-card">
+                <a href="https://procoretech.atlassian.net/servicedesk/customer/portal/114" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-ticket fa-2x"></i> 
+                    LRC Service Desk
+                </a>
+            </div>
+            <!-- #Ask LRC Card -->
+            <div class="sidenav-card">
+                <a href="https://procoretech.atlassian.net/servicedesk/customer/portal/114/group/450/create/5003" title="Need more help? Please send us a question!" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-question-circle fa-2x"></i>
+                    #Ask LRC
+                </a>
+            </div>
+            <!-- EthicsPoint Card -->
+            <div class="sidenav-card">
+                <a href="https://secure.ethicspoint.com/domain/media/en/gui/54631/index.html" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-shield fa-2x"></i>
+                    EthicsPoint
+                </a>
+            </div>
+        </div>
+
+        <hr class="border-t border-black/30 mx-4 my-3">
+        
+        <p class="sidenav-section-title">Navigation</p>
+
+        <!-- Dynamic Dropdowns for Teams and Resources -->
+        
+        <button class="dropdown-btn">
+            Our Teams
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942567/Corporate+Securities+M+A" target="_blank" rel="noopener noreferrer">Corporate, Securities, & M&A</a>
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942131/Go-to-Market" target="_blank" rel="noopener noreferrer">Commercial Legal</a>
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802909360/Employment+Litigation+Ethics+Compliance" target="_blank" rel="noopener noreferrer">Employment, Litigation, Ethics & Compliance</a>
+            <a href="#" class="active bg-black/50 font-semibold">Legal Operations</a>
+            <!-- Current Page Link -->
+            <a href="#" class="active bg-black/50 font-semibold">Product, Privacy, & IP</a>
+        </div>
+        
+        <button class="dropdown-btn">
+            Resources
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="https://lucid.app/publicSegments/view/81654677-2115-427d-b6d4-36cad294423b/image.png" target="_blank" rel="noopener noreferrer">LRC Organization Chart</a>
+            <a href="https://docs.google.com/presentation/d/15LcLLyX67i5Ej-g5i5xcA21BfmniJ9CiUO2LXG43ECds/present?slide=id.g149bcedee81_0_524" target="_blank" rel="noopener noreferrer">LRC's Mission, Vision, & Values</a>
+            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g104d75290de_0_0" target="_blank" rel="noopener noreferrer">LRC Onboarding Deck</a>
+            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g120438a3235_0_0" target="_blank" rel="noopener noreferrer">Self-Service Legal</a>
+            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g10d110e127d_0_35" target="_blank" rel="noopener noreferrer">Our Approach</a>
+            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g1c8883f3b5d_0_508" target="_blank" rel="noopener noreferrer">What We Do</a>
+            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g113d5c194a2_1_15" target="_blank" rel="noopener noreferrer">When to Engage Us</a>
+        </div>
+
+        <button class="dropdown-btn">
+            CLO Signature Requests
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="https://docs.google.com/document/d/1f1jm22cwsBUv1C1y_L80zXUzyEqT7iWxXe6q3jg-KPY/edit" target="_blank" rel="noopener noreferrer">Guidance for Submitting CLO Signature Request</a>
+            <a href="https://app.smartsheet.com/b/form/5cce753bc4c14df69edcd13596142265" target="_blank" rel="noopener noreferrer">CLO Signature Request Form</a>
+        </div>
+
+        <hr class="border-t border-black/30 mx-4 my-3">
+
+        <!-- Miscellaneous Links -->
+        <p class="sidenav-section-title">Other Links</p>
+        <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802943856/LRC+Internal" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-search"></i>LRC Internal
+        </a>
+        <a href="https://thecore.procore.com/" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-globe"></i>The Core
+        </a>
+        <a href="https://app.smartsheet.com/b/form/119120d755904b3986665a8566d154cc" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-file-text"></i>Disclosure of Outside Employment
+        </a>
+        
+    </div>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- MAIN CONTENT AREA (Scrollable) -->
+    <!-- ---------------------------------------------------- -->
+    <div class="main">
+        
+        <!-- HEADER -->
+        <header id="fixed-header" class="flex items-center justify-between px-6">
+            <!-- LOGO and TITLE BLOCK -->
+            <div class="header-title-block">
+                <!-- Procore Logo Re-added and Sized -->
+                <img 
+                    src="https://media.ffycdn.net/us/procore/etmeNi2XofqcS5LaePER.png?width=200" 
+                    alt="Procore Logo" 
+                    class="header-logo"
+                    onerror="this.onerror=null; this.src='https://placehold.co/200x40/ff5200/ffffff?text=PROCORE';"
+                >
+                <h1 class="text-white text-2xl font-bold tracking-tight text-center md:text-left hidden sm:block">Product, Privacy, & Intellectual Property</h1>
+            </div>
+            
+            <!-- DESKTOP Search Bar (Hidden on Mobile) -->
+            <div class="hidden md:flex items-center space-x-2">
+                <i class="ph-magnifying-glass-duotone text-white text-xl"></i>
+                <input
+                    id="desktopSearchInput"
+                    type="text"
+                    placeholder="Search this page..."
+                    class="p-2 rounded-lg bg-white/10 text-white placeholder-white/70 border border-white/20 focus:outline-none focus:border-white transition searchable-input"
+                >
+            </div>
+        </header>
+
+        <!-- FIXED NAVIGATION (Table of Contents) -->
+        <nav id="fixed-nav" class="p-2 shadow-lg">
+            <ul class="flex flex-wrap gap-2 justify-center md:justify-start">
+                <li><a href="#about-us" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">About Us</a></li>
+                <li><a href="#meet-the-team" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Meet the Team</a></li>
+                <li><a href="#resources" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Resources</a></li>
+            </ul>
+        </nav>
+
+        <!-- CAROUSEL BANNER (Simple 3D Animation Placeholder) -->
+        <canvas id="carousel-canvas"></canvas>
+        
+        <!-- UPDATED: Dedicated 24px buffer of white space -->
+        <div class="h-6" style="background-color: #f7f7f7;"></div> 
+        
+        <main id="content-wrapper" class="container mx-auto px-4 lg:px-8 py-4">
+            
+            <!-- MOBILE Search Bar (Visible only on Mobile) -->
+            <div class="flex md:hidden items-center space-x-2 mb-6 p-4 rounded-lg bg-white shadow searchable-item">
+                <i class="ph-magnifying-glass-duotone text-procore-black text-xl"></i>
+                <input
+                    id="mobileSearchInput"
+                    type="text"
+                    placeholder="Search content..."
+                    class="p-2 w-full bg-transparent focus:outline-none searchable-input"
+                >
+            </div>
+            
+            <!-- SECTION 1: ABOUT US -->
+            <section id="about-us">
+                <h2 class="collapsible searchable-item" data-target="about-content">
+                    About Us
+                    <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
+                </h2>
+                <div id="about-content" class="content-section">
+                    <div class="text-lg space-y-4">
+                        <p>We provide counseling for <b>product</b>, <b>R&D</b>, <b>UX</b>, and <b>open source</b>. We give guidance in our <b>beta program</b> and <b>app marketplace</b> space.</p>
+                        <p>Contact us early and often at the <a href="https://procoretech.atlassian.net/servicedesk/customer/portal/114" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:text-orange-800 font-semibold transition">LRC Service Desk</a> when you have questions about <b>Product</b>, <b>R&D</b>, <b>UX</b>, <b>Open Source Counseling</b>, <b>App Marketing</b>, <b>Beta Program</b>, <b>TM</b> (Trademark), <b>trade secret</b>, <b>domains</b>, <b>Patent Portfolios</b>, or <b>IP</b> (Intellectual Property).</p>
+                    </div>
+                    <!-- This link uses native HTML hash jump -->
+                    <a href="#home" class="back-to-top">Back to Top &uarr;</a>
+                </div>
+            </section>
+
+            <!-- SECTION 2: MEET THE TEAM (Polished Cards with Fixed Height) -->
+            <section id="meet-the-team">
+                <h2 class="collapsible searchable-item" data-target="team-content">
+                    Meet the Team
+                    <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
+                </h2>
+                <div id="team-content" class="content-section">
+                    <!-- Cards Grid: Ensures tiles are the same size. -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        <!-- Team Member 1: Paul Kafadar -->
+                        <div class="searchable-item team-card">
+                            <div>
+                                <h3 class="text-white">Paul Kafadar</h3>
+                                <p class="text-sm">(Pacific)</p>
+                            </div>
+                            <p class="mt-4 title">Vice President & Associate General Counsel, Product, Privacy, & IP</p>
+                        </div>
+
+                        <!-- Team Member 2: Jordan Ekelin -->
+                        <div class="searchable-item team-card">
+                            <div>
+                                <h3 class="text-white">Jordan Ekelin</h3>
+                                <p class="text-sm">(Central)</p>
+                            </div>
+                            <p class="mt-4 title">Director & Assistant General Counsel, Product & Partnerships</p>
+                        </div>
+
+                        <!-- Team Member 3: Mike Barnett -->
+                        <div class="searchable-item team-card">
+                            <div>
+                                <h3 class="text-white">Mike Barnett</h3>
+                                <p class="text-sm">(Eastern)</p>
+                            </div>
+                            <p class="mt-4 title">Assistant General Counsel, Product & Fintech</p>
+                        </div>
+
+                        <!-- Team Member 4: Matt Altaras -->
+                        <div class="searchable-item team-card">
+                            <div>
+                                <h3 class="text-white">Matt Altaras</h3>
+                                <p class="text-sm"></p>
+                            </div>
+                            <p class="mt-4 title">Director, Assistant General Counsel, Data Protection</p>
+                        </div>
+                        
+                        <!-- Team Member 5: Alex Benarroche -->
+                        <div class="searchable-item team-card">
+                            <div>
+                                <h3 class="text-white">Alex Benarroche</h3>
+                                <p class="text-sm"></p>
+                            </div>
+                            <p class="mt-4 title">Counsel - Lien Rights Management</p>
+                        </div>
+                        
+                        <!-- Team Member 6: Hannah Newsom -->
+                        <div class="searchable-item team-card">
+                            <div>
+                                <h3 class="text-white">Hannah Newsom</h3>
+                                <p class="text-sm"></p>
+                            </div>
+                            <p class="mt-4 title">Lien Rights Management Regulatory & Compliance Specialist</p>
+                        </div>
+
+                    </div>
+                    <a href="#home" class="back-to-top">Back to Top &uarr;</a>
+                </div>
+            </section>
+
+            <!-- SECTION 4: RESOURCES (Links Added) -->
+            <section id="resources">
+                <h2 class="collapsible searchable-item" data-target="resources-content">
+                    Resources & Policies
+                    <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
+                </h2>
+                <div id="resources-content" class="content-section">
+                    <ul class="space-y-3 list-disc list-inside searchable-item text-lg">
+                        <li class="hover:text-procore-orange transition"><a href="https://docs.google.com/spreadsheets/d/1F8WirJby_errV3KTHd1SXR8sZhzKKRtIyOPRjQgaMIo/edit" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Product & Technology Organizational Model</a></li>
+                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac/policies/handbook__policies/open_source_policy" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Open Source Policy</a></li>
+                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac/policies/handbook__policies/mlai_development_policy" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">AI/ML Policy</a></li>
+                        
+                        <!-- UPDATED LINK -->
+                        <li class="hover:text-procore-orange transition"><a href="https://docs.google.com/document/d/1cOp2BoaqFmbo5e03aLBb9cL6Ywp_skQt7uyLBB-GgDU/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Patent Recognition Program</a></li>
+                        
+                        <!-- UPDATED LINK & TEXT -->
+                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac#countryguides" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Country Guides & Blueprint Handbooks</a></li>
+                        
+                        <!-- UPDATED LINK -->
+                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac/policies/handbook__policies/data_classification_and_handling_policy" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Data Classification and Handling Policy</a></li>
+                        
+                        <!-- UPDATED LINK -->
+                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac/policies/handbook__policies/guidelines_for_the_responsible_use_of_generative_ai" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Guidelines for the Responsible Use of Generative AI</a></li>
+                        
+                        <!-- REMOVED: How to Report a Concern -->
+
+                        <!-- UPDATED LINK -->
+                        <li class="hover:text-procore-orange transition"><a href="https://docs.google.com/presentation/d/1Jpg0u4PsQS-F3Ym38IvzxyK_t7w5Cjda/edit?slide=id.gb78d2b175a_0_9#slide=id.gb78d2b175a_0_9" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Procore's IP Program</a></li>
+                    </ul>
+                    <a href="#home" class="back-to-top">Back to Top &uarr;</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- JAVASCRIPT LOGIC (Deferred for better performance) -->
+    <!-- ---------------------------------------------------- -->
+    <!-- Load Phosphor Icons for the plus/minus collapse indicators -->
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <!-- Load three.js for the simple carousel animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        
+        let renderer, camera, scene, cubes = [];
+        const mainContent = document.querySelector('.main');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // ------------------- SIDEBAR DROPDOWN LOGIC -------------------
+            const dropdown = document.getElementsByClassName("dropdown-btn");
+            for (let i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    const dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
+            }
+
+            // ------------------- SPACER HEIGHT CALCULATION -------------------
+            const header = document.getElementById('fixed-header');
+            const nav = document.getElementById('fixed-nav');
+            const carousel = document.getElementById('carousel-canvas');
+            const contentWrapper = document.getElementById('content-wrapper');
+
+            function updateContentPadding() {
+                if (window.innerWidth > 1024) {
+                    // Only apply padding if the fixed elements are active (desktop view)
+                    const totalFixedHeaderHeight = header.offsetHeight + nav.offsetHeight + carousel.offsetHeight;
+                    
+                    // CRITICAL: We also add the buffer height here to ensure the content starts after the buffer element
+                    const totalHeightWithBuffer = totalFixedHeaderHeight + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--buffer-height'));
+                    
+                    contentWrapper.style.paddingTop = `${totalHeightWithBuffer}px`;
+                } else {
+                    // On mobile, the main area scrolls naturally, so remove padding
+                    contentWrapper.style.paddingTop = '0px'; 
+                }
+            }
+
+            // Recalculate on load and resize
+            updateContentPadding();
+            window.addEventListener('resize', updateContentPadding);
+
+
+            // ------------------- COLLAPSIBLE/ACCORDION LOGIC -------------------
+            const collapsibles = document.querySelectorAll('.collapsible');
+
+            collapsibles.forEach(header => {
+                const contentId = header.getAttribute('data-target');
+                const content = document.getElementById(contentId);
+                const icon = header.querySelector('[data-icon]');
+
+                const setContentHeight = (element, state) => {
+                    if (state === 'open') {
+                        // Use scrollHeight for accurate content measurement
+                        element.style.maxHeight = element.scrollHeight + "px";
+                        element.style.opacity = '1';
+                    } else {
+                        element.style.maxHeight = '0';
+                        element.style.opacity = '0';
+                    }
+                };
+
+                // Initial state: Expanded
+                header.classList.add('active');
+                icon.classList.replace('ph-plus-circle-fill', 'ph-minus-circle-fill');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                content.style.opacity = '1';
+
+                header.addEventListener('click', () => {
+                    const isActive = header.classList.toggle('active');
+
+                    if (isActive) {
+                        icon.classList.replace('ph-minus-circle-fill', 'ph-plus-circle-fill');
+                        setTimeout(() => setContentHeight(content, 'open'), 10); 
+                    } else {
+                        icon.classList.replace('ph-minus-circle-fill', 'ph-plus-circle-fill');
+                        setContentHeight(content, 'closed');
+                    }
+                });
+                
+                window.addEventListener('resize', () => {
+                    if (header.classList.contains('active')) {
+                        setContentHeight(content, 'open');
+                    }
+                });
+            });
+
+            // ------------------- SEARCH/FILTER LOGIC -------------------
+            const desktopSearch = document.getElementById('desktopSearchInput');
+            const mobileSearch = document.getElementById('mobileSearchInput');
+            const searchableItems = document.querySelectorAll('.searchable-item');
+            
+            const syncInputs = (sourceInput, targetInput) => {
+                targetInput.value = sourceInput.value;
+            };
+
+            const filterContent = (query) => {
+                const lowerCaseQuery = query.toLowerCase().trim();
+
+                searchableItems.forEach(item => {
+                    const textContent = item.textContent.toLowerCase();
+                    const isMatch = textContent.includes(lowerCaseQuery);
+                    
+                    if (isMatch) {
+                        if (item.classList.contains('collapsible')) {
+                            item.style.display = 'flex';
+                        } else if (item.closest('.grid')) {
+                            item.style.display = 'flex';
+                        } else if (item.tagName === 'LI') {
+                            item.style.display = 'list-item';
+                        } else {
+                            item.style.display = 'block';
+                        }
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            };
+
+            desktopSearch.addEventListener('input', (e) => {
+                syncInputs(desktopSearch, mobileSearch);
+                filterContent(e.target.value);
+            });
+
+            mobileSearch.addEventListener('input', (e) => {
+                syncInputs(mobileSearch, desktopSearch);
+                filterContent(e.target.value);
+            });
+
+            // ------------------- FIX: Prevent Hash Links from Reloading Page -------------------
+            // We only need to prevent the default action for in-page hash links.
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const hash = this.getAttribute('href');
+                    
+                    // Check if it's a hash link pointing within the page
+                    if (hash.length > 1 || hash === '#home') { 
+                        e.preventDefault();
+                        
+                        // Find the target element
+                        const targetElement = document.querySelector(hash);
+                        
+                        if (targetElement) {
+                            // Use scrollIntoView on the target element. 
+                            // The scroll-padding-top CSS property on the .main container handles the offset.
+                            targetElement.scrollIntoView({
+                                behavior: 'instant', // Ensure instantaneous jump as requested
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+            // ------------------- END FIX -------------------
+
+
+            // ------------------- CAROUSEL (3D Mock) LOGIC -------------------
+            
+            const canvas = document.getElementById('carousel-canvas');
+            
+            function updateCanvasSize() {
+                // Since the fixed elements are now positioned absolutely within the scrollable main container,
+                // we use the main container's width (or the window width for max space)
+                const newWidth = mainContent.clientWidth;
+                renderer.setSize(newWidth, 200);
+                camera.aspect = newWidth / 200;
+                camera.updateProjectionMatrix();
+            }
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue('--procore-stone'));
+
+            camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / 200, 0.1, 1000);
+            camera.position.z = 4.2; 
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            
+            function makeTextSprite(message, color) {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = 128;
+                canvas.height = 128;
+                
+                // INCREASED FONT SIZE from 110px to 140px
+                context.font = "Bold 140px Orbitron, sans-serif"; 
+                context.fillStyle = color;
+                context.textAlign = "center";
+                context.textBaseline = "middle";
+                context.fillText(message, canvas.width / 2, canvas.height / 2 + 10);
+                
+                const texture = new THREE.CanvasTexture(canvas);
+                const material = new THREE.SpriteMaterial({ map: texture, color: 0xffffff });
+                const sprite = new THREE.Sprite(material);
+                
+                // INCREASED SCALE from 2.5 to 3.0 to match the larger font
+                sprite.scale.set(3.0, 3.0, 1);
+                return sprite;
+            }
+
+            const excitingAreas = [
+                { title: "Product", letter: "P", color: 0xff5200, position: -3.5 },
+                { title: "Privacy", letter: "P", color: 0x000000, position: -1.25 },
+                { title: "Intellectual Property", letter: "I", color: 0xff5200, position: 1.25 },
+                { title: "Patent Portfolios", letter: "P", color: 0x000000, position: 3.5 }
+            ];
+
+            function initCarousel() {
+                updateCanvasSize(); 
+
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                scene.add(ambientLight);
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                directionalLight.position.set(0, 5, 5);
+                scene.add(directionalLight);
+
+                const width = 2.0;
+                const height = 3.0;
+                const depth = 0.8;
+                const segments = 10; 
+
+                excitingAreas.forEach((area) => {
+                    
+                    const cubeGeometry = new THREE.BoxGeometry(width, height, depth, segments, segments, segments);
+                    cubeGeometry.computeVertexNormals(); // Ensure smooth shading
+                    
+                    const materialColor = area.color === 0x000000 ? 0x222222 : 0xf04400; 
+                    const material = new THREE.MeshPhongMaterial({ 
+                        color: materialColor, 
+                        emissive: materialColor, 
+                        emissiveIntensity: 0.2, 
+                        shininess: 80, 
+                        specular: 0xcccccc 
+                    });
+                    
+                    const cube = new THREE.Mesh(cubeGeometry, material);
+                    
+                    cube.position.x = area.position;
+                    cube.userData.originalX = area.position;
+                    cube.userData.rotationSpeed = 0.01;
+                    cubes.push(cube);
+                    scene.add(cube);
+                    
+                    const spriteColor = area.color === 0x000000 ? 'white' : 'black';
+                    const sprite = makeTextSprite(area.letter, spriteColor);
+                    
+                    sprite.position.set(0, 0, 0.41); 
+                    
+                    cube.add(sprite);
+                });
+            }
+
+            let animationFrameId;
+
+            function animate() {
+                animationFrameId = requestAnimationFrame(animate);
+
+                cubes.forEach(cube => {
+                    cube.rotation.y += cube.userData.rotationSpeed * 0.5;
+                    cube.rotation.x += cube.userData.rotationSpeed / 4; 
+                    cube.rotation.z += cube.userData.rotationSpeed / 8;
+                    
+                    cube.updateMatrixWorld(true);
+                    
+                    const scaleFactor = 1 + Math.sin(Date.now() * 0.001 * cube.userData.rotationSpeed * 20) * 0.03;
+                    cube.scale.x = cube.scale.y = cube.scale.z = scaleFactor;
+                });
+
+                if (renderer) {
+                    renderer.render(scene, camera);
+                }
+            }
+
+            function onWindowResize() {
+                updateCanvasSize();
+                updateContentPadding();
+            }
+
+            window.addEventListener('resize', onWindowResize);
+
+            initCarousel();
+            animate();
+
+            // ------------------- FINAL INIT -------------------
+            updateContentPadding();
+        });
+    </script>
+</body>
+</html>
+

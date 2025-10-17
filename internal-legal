@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- MODIFIED: Updated Title -->
-    <title>Legal Operations - LRC</title>
+    <title>Commercial Legal - LRC</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Font Awesome for the caret icon in the dropdowns -->
@@ -94,7 +93,8 @@
         .sidenav-card a { padding: 0; background: none; color: var(--procore-light-text); font-weight: 600; font-size: 16px; display: flex; align-items: center; width: 100%; }
         .sidenav-card i.fa { color: var(--procore-orange) !important; margin-right: 12px; width: 32px; text-align: center; transition: color 0.2s; }
         .sidenav-card:hover i.fa { color: var(--procore-orange) !important; }
-        .sidenav-title { padding: 0 16px 8px; text-align: left; }
+        /* MODIFIED: Removed padding from title to enable full link padding */
+        .sidenav-title { padding: 0 0 8px; text-align: left; }
 
 
         /* ------------------- MAIN CONTENT LAYOUT ------------------- */
@@ -210,10 +210,9 @@
             transition: transform 0.2s; 
             display: flex; 
             flex-direction: column; 
-            /* RE-ADDED: Constrain height to make the cards more horizontal/square like the original design */
-            min-height: 240px; 
             height: 100%; 
             justify-content: space-between; 
+            min-height: 220px; 
         }
         /* NEW: Profile picture styling for IMG tag */
         .profile-pic {
@@ -248,20 +247,15 @@
             margin-bottom: 1rem;
         }
         
-        #team-content .grid { 
-            display: grid; 
-            grid-template-rows: auto; 
-            /* Ensures cards stretch to the height of the tallest card */
-            align-items: stretch; 
-        }
+        #team-content .grid { display: grid; grid-template-rows: auto; align-items: stretch; }
         .team-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); }
         .team-card h3 { color: var(--procore-black); font-weight: 700; font-size: 1.25rem; }
         .team-card p { color: var(--procore-dark-text); }
-        .team-card .title { 
-            color: var(--procore-orange); 
-            font-weight: 600; 
-            /* ADJUSTED: Smaller font size to fit long titles onto fewer lines */
-            font-size: 0.95rem; 
+        .team-card .title { color: var(--procore-orange); font-weight: 600; font-size: 1rem; }
+        
+        /* NEW: Style for underlining links in the main content area */
+        .content-section a {
+            text-decoration: underline;
         }
 
     </style>
@@ -274,20 +268,24 @@
     <!-- DYNAMIC COMMAND PANEL (Sidebar) -->
     <!-- ---------------------------------------------------- -->
     <div class="sidenav">
-        <!-- ADDED sidenav-title-script CLASS and updated font size/style -->
-        <!-- UPDATED: Changed font size to text-base to make it smaller -->
-        <p class="sidenav-title sidenav-title-script text-base font-bold pt-4">Legal, Regulatory, & Compliance</p>
-        <!-- MODIFIED: Updated Subtitle to Legal Operations -->
-        <p class="sidenav-title sidenav-title-script text-base font-normal pb-3 text-gray-700">Legal Operations</p>
+        <!-- MODIFIED: Added hyperlink to the LRC Overview -->
+        <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/overview" target="_blank" rel="noopener noreferrer" 
+           class="sidenav-title sidenav-title-script text-base font-bold pt-4 hover:bg-black/20 block px-4 py-2"
+           style="padding-left: 1rem; padding-right: 1rem;">
+            Legal, Regulatory, & Compliance
+        </a>
+        <!-- UPDATED: Changed sidebar text to Commercial Legal -->
+        <p class="sidenav-title sidenav-title-script text-base font-normal pb-3 text-gray-700" style="padding: 0 16px 8px;">Commercial Legal</p>
         <hr class="border-t border-black/30 mx-4">
         
         <p class="sidenav-section-title">Quick Links</p>
         <!-- Quick Links as Cards -->
         <div class="space-y-2 px-2">
-            <!-- LRC Service Desk Card - FIX: Removed extra space -->
+            <!-- LRC Service Desk Card -->
             <div class="sidenav-card">
                 <a href="https://procoretech.atlassian.net/servicedesk/customer/portal/114" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-ticket fa-2x"></i>LRC Service Desk
+                    <i class="fa fa-ticket fa-2x"></i> 
+                    LRC Service Desk
                 </a>
             </div>
             <!-- #Ask LRC Card -->
@@ -318,11 +316,12 @@
         </button>
         <div class="dropdown-container">
             <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942567/Corporate+Securities+M+A" target="_blank" rel="noopener noreferrer">Corporate, Securities, & M&A</a>
-            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942131/Go-to-Market" target="_blank" rel="noopener noreferrer">Commercial Legal</a>
+            <!-- UPDATED: Set Commercial Legal as active link -->
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942131/Go-to-Market" class="active bg-black/50 font-semibold" target="_blank" rel="noopener noreferrer">Commercial Legal</a>
             <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802909360/Employment+Litigation+Ethics+Compliance" target="_blank" rel="noopener noreferrer">Employment, Litigation, Ethics & Compliance</a>
             <!-- UPDATED URL for Legal Operations -->
-            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942240/Legal+Operations" class="active bg-black/50 font-semibold">Legal Operations</a>
-            <!-- UPDATED URL for Product, Privacy, & IP (Active Page Link) -->
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942240/Legal+Operations">Legal Operations</a>
+            <!-- UPDATED: Removed active class from this link -->
             <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942349/Product+Privacy+Intellectual+Property">Product, Privacy, & IP</a>
         </div>
         
@@ -331,13 +330,26 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="https://lucid.app/publicSegments/view/81654677-2115-427d-b6d4-36cad294423b/image.png" target="_blank" rel="noopener noreferrer">LRC Organization Chart</a>
-            <a href="https://docs.google.com/presentation/d/15LcLLyX67i5Ej-g5i5xcA21BfmniJ9CiUO2LXG43ECds/present?slide=id.g149bcedee81_0_524" target="_blank" rel="noopener noreferrer">LRC's Mission, Vision, & Values</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g104d75290de_0_0" target="_blank" rel="noopener noreferrer">LRC Onboarding Deck</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g120438a3235_0_0" target="_blank" rel="noopener noreferrer">Self-Service Legal</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g10d110e127d_0_35" target="_blank" rel="noopener noreferrer">Our Approach</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g1c8883f3b5d_0_508" target="_blank" rel="noopener noreferrer">What We Do</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g113d5c194a2_1_15" target="_blank" rel="noopener noreferrer">When to Engage Us</a>
+            <!-- MODIFIED: Updated URL and text to reflect "Who We Are" -->
+            <a href="https://lucid.app/lucidchart/0d629cec-77e5-4354-b108-e5bb43e6298f/edit?invitationId=inv_b59f4a0a-d23c-414c-b38e-c6b63aab0c17&referringApp=slack&page=Bep9ZIbsRFwt#" target="_blank" rel="noopener noreferrer">Who We Are/Org Chart</a>
+            
+            <!-- MODIFIED: Updated LRC's Mission, Vision, & Values link and set to slideshow mode -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_6669" target="_blank" rel="noopener noreferrer">LRC's Mission, Vision, & Values</a>
+            
+            <!-- MODIFIED: Updated URL and set to slideshow mode -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g2fba1d88aad_1_11" target="_blank" rel="noopener noreferrer">LRC Onboarding Deck</a>
+            
+            <!-- MODIFIED: Updated Self-Service Legal link and set to slideshow mode -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16088" target="_blank" rel="noopener noreferrer">Self-Service Legal</a>
+            
+            <!-- MODIFIED: Updated Our Approach link and set to slideshow mode -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_10792" target="_blank" rel="noopener noreferrer">Our Approach</a>
+            
+            <!-- MODIFIED: Updated URL and set to slideshow mode -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16021" target="_blank" rel="noopener noreferrer">What We Do</a>
+            
+            <!-- MODIFIED: Updated URL and set to slideshow mode -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16075" target="_blank" rel="noopener noreferrer">When to Engage Us</a>
         </div>
 
         <button class="dropdown-btn">
@@ -381,8 +393,8 @@
                     class="header-logo"
                     onerror="this.onerror=null; this.src='https://placehold.co/200x40/ff5200/ffffff?text=PROCORE';"
                 >
-                <!-- MODIFIED: Updated H1 text to Legal Operations -->
-                <h1 class="text-white text-2xl font-bold tracking-tight text-center md:text-left hidden sm:block">Legal Operations</h1>
+                <!-- UPDATED: Changed header title to Commercial Legal -->
+                <h1 class="text-white text-2xl font-bold tracking-tight text-center md:text-left hidden sm:block">Commercial Legal</h1>
             </div>
             
             <!-- DESKTOP Search Bar (Hidden on Mobile) -->
@@ -400,22 +412,22 @@
         <!-- FIXED NAVIGATION (Table of Contents) -->
         <nav id="fixed-nav" class="p-2 shadow-lg">
             <ul class="flex flex-wrap gap-2 justify-center md:justify-start">
-                <li><a href="#about-us" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">What We Do</a></li>
+                <li><a href="#about-us" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">About Us</a></li>
                 <li><a href="#meet-the-team" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Meet the Team</a></li>
-                <!-- REMOVED: Resources & Policies Link -->
+                <li><a href="#resources" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Resources</a></li>
             </ul>
         </nav>
 
         <!-- CAROUSEL BANNER (Simple 3D Animation Placeholder) -->
         <canvas id="carousel-canvas"></canvas>
 
-        <!-- MODIFIED: Legal Ops Text Overlay is now centered -->
+        <!-- MODIFIED: P P I P Text Overlay is now centered and changed to COMMERCIAL LEGAL -->
         <div id="legal-ops-text" 
-             class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none" 
-             style="z-index: 950; top: calc(var(--header-fixed-height) + var(--nav-fixed-height) + 100px);"> 
+            class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none" 
+            style="z-index: 950; top: calc(var(--header-fixed-height) + var(--nav-fixed-height) + 100px);"> 
             <p class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-widest text-center p-3 rounded-lg bg-white/70 shadow-lg" 
-               style="font-family: 'Orbitron', sans-serif; color: var(--procore-black); text-shadow: 1px 1px 2px rgba(0,0,0,0.1); border-left: 4px solid var(--procore-orange); border-right: 4px solid var(--procore-orange);">
-                LEGAL OPS
+                style="font-family: 'Orbitron', sans-serif; color: var(--procore-black); text-shadow: 1px 1px 2px rgba(0,0,0,0.1); border-left: 4px solid var(--procore-orange); border-right: 4px solid var(--procore-orange);">
+                COMMERCIAL LEGAL
             </p>
         </div>
         
@@ -435,38 +447,27 @@
                 >
             </div>
             
-            <!-- SECTION 1: WHAT WE DO -->
+            <!-- SECTION 1: ABOUT US -->
             <section id="about-us">
-                <!-- MODIFIED: Changed header text to "What We Do" -->
                 <h2 class="collapsible searchable-item" data-target="about-content">
-                    What We Do
+                    About Us
                     <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
                 </h2>
                 <div id="about-content" class="content-section">
                     <div class="text-lg space-y-4">
-                        <!-- MODIFIED: Updated content with detailed responsibilities list -->
-                        <p>The Legal Operations team is dedicated to increasing the efficiency, transparency, and strategic impact of the Legal, Regulatory, & Compliance department.</p>
+                        <!-- Commercial Legal: Liaison Role (Markdown ** replaced with <b>) -->
+                        <p>We partner with <b>Revenue teams</b> to negotiate customer-facing agreements. Our top priority is getting deals closed! Commercial Legal also acts as Revenue’s liaison with the rest of the Legal team, such as Privacy and Product, to solve customer-related issues.</p>
                         
-                        <p>
-                            Our primary functions include: 
-                            <strong>Financial and Vendor Management</strong> (including Fiscal Year Planning and Budgeting), 
-                            <strong>LRC Technology</strong>, 
-                            <strong>Data & Analytics</strong>, 
-                            <strong>Knowledge Management</strong>, 
-                            <strong>Org Design & Onboarding</strong>, 
-                            <strong>Project Management, Task Automation, & Process Improvement</strong> (inc. M&A Integration), 
-                            <strong>Shared Services</strong>, 
-                            <strong>Strategic Planning</strong>, 
-                            <strong>3rd Party Legal Services Program</strong>, 
-                            <strong>Event Planning</strong>, and more.
-                        </p>
+                        <!-- NEWLY ADDED: Commercial Legal's Strategic Scope (Markdown ** replaced with <b>) -->
+                        <p>We are <b>Revenue and CS’s strategic legal partner</b> for all things customer-related; we negotiate all customer-related contracts, new logos or renewal, across all segments, stakeholders, and geos globally; develop and deliver enablement and training to improve Revenue and CS operations; and partner on collections and customer bankruptcy issues.</p>
+
+                        <!-- Center of Excellence (COE) Definition (Markdown ** replaced with <b>) -->
+                        <h3 class="text-xl font-bold pt-4 pb-2" style="color: var(--procore-orange);">What is Center of Excellence (COE)?</h3>
+                        <p><b>COE</b> is a highly-experienced team with a broad range of specialties giving us a unique ability to support any negotiation. COE supports proposal reviews and manages legal escalations to Procore’s Privacy, Product, and Compliance teams. COE is designed to help sales bring deals to closure as quickly as possible by understanding when and how to be flexible, and how to help sales strategize at the agreement stage.</p>
                         
-                        <p>
-                            Contact us early and often via our Service Desk when you need support with your business needs. Please submit all requests through the 
-                            <a href="https://procoretech.atlassian.net/servicedesk/customer/portal/114" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:text-orange-800 font-semibold transition">
-                                <i class="fa fa-wrench mr-1"></i>LRC Service Desk
-                            </a>.
-                        </p>
+                        <!-- NEWLY ADDED: Procurement Legal & Marketing Support (Markdown ** replaced with <b>) -->
+                        <h3 class="text-xl font-bold pt-4 pb-2" style="color: var(--procore-orange);">Procurement & Marketing Support</h3>
+                        <p><b>Procurement Legal</b> supports the Procurement organization on all non-sales commercial contracts and buy-side transactions, including all NDAs company-wide. Plus, we support global Marketing efforts and serve as the primary business partner for the Marketing organization globally.</p>
                     </div>
                     <!-- This link uses native HTML hash jump -->
                     <a href="#home" class="back-to-top">Back to Top &uarr;</a>
@@ -483,113 +484,251 @@
                     <!-- Cards Grid: Ensures tiles are the same size. -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                        <!-- Team Member 1: Mick Cox -->
+                        <!-- Team Member 1: Alice Bisgrove -->
                         <div class="searchable-item team-card">
                             <div class="flex items-center space-x-4 mb-4">
                                 <img 
                                     class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/D5603AQG6S54PablgEA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1683865625477?e=1762387200&v=beta&t=02-MndhQ3PPGUPCUTNDsJU-U6vxx4M9gxw3mDUUk5Ew" 
-                                    alt="Mick Cox Profile"
+                                    src="https://media.licdn.com/dms/image/v2/D4D03AQHzBpUkltWM2w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1680824167014?e=1762387200&v=beta&t=ILnRHRIrBo3yBnI4ZRT36MhsO-8A96D4lKnmP__5-cU" 
+                                    alt="Alice Bisgrove Profile"
                                     onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
                                 >
-                                <div class="initials-placeholder hidden">MC</div>
+                                <div class="initials-placeholder hidden">AB</div>
                                 <div>
-                                    <h3 class="text-white">Mick Cox</h3>
+                                    <h3 class="text-white">Alice Bisgrove</h3>
                                     <p class="text-sm text-white/80"></p>
                                 </div>
                             </div>
-                            <p class="title">VP, Legal Operations</p>
+                            <p class="title">SVP & Deputy General Counsel, Commercial Legal</p>
                         </div>
 
-                        <!-- Team Member 2: Dan Baker -->
+                        <!-- Team Member 2: Christyne Brennan -->
                         <div class="searchable-item team-card">
                             <div class="flex items-center space-x-4 mb-4">
-                                <img 
-                                    class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/D5603AQE_jH_yjg75uw/profile-displayphoto-scale_400_400/B56Zm2b0.UIAAg-/0/1759702372632?e=1762387200&v=beta&t=BoDfTqGIr_GqTRY3BK5bIWV1vN2zH40t_E3xo1hlwR4" 
-                                    alt="Dan Baker Profile"
-                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
-                                >
-                                <div class="initials-placeholder hidden">DB</div>
+                                <!-- NO URL PROVIDED - Defaulting to Initials -->
+                                <div class="initials-placeholder">CB</div>
                                 <div>
-                                    <!-- FIXED: Capitalized name -->
-                                    <h3 class="text-white">Dan Baker</h3>
+                                    <h3 class="text-white">Christyne Brennan</h3>
                                     <p class="text-sm text-white/80"></p>
                                 </div>
                             </div>
-                            <p class="title">Director, Legal Operations & Systems</p>
+                            <p class="title">Director & Assistant General Counsel, Public Sector</p>
                         </div>
 
-                        <!-- Team Member 3: Kalyani Pagadrai -->
+                        <!-- Team Member 3: Emily See -->
                         <div class="searchable-item team-card">
                             <div class="flex items-center space-x-4 mb-4">
                                 <img 
                                     class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/D5603AQGq1ZuMLWcBTg/profile-displayphoto-shrink_800_800/B56ZWL3bIBGUAg-/0/1741808319860?e=1762387200&v=beta&t=kr6svZFjPe_ZMvFukplZi9MT6-5dm3w_irZLEGJw2zc" 
-                                    alt="Kalyani Pagadrai Profile"
+                                    src="https://media.licdn.com/dms/image/v2/C5603AQE8zBzS0NNQMQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1517488972621?e=1762387200&v=beta&t=0122UJQ56yup0O2mtKtzR3p1rA9LFINW2I4_OFVZc7g" 
+                                    alt="Emily See Profile"
                                     onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
                                 >
-                                <div class="initials-placeholder hidden">KP</div>
+                                <div class="initials-placeholder hidden">ES</div>
                                 <div>
-                                    <h3 class="text-white">Kalyani Pagadrai</h3>
+                                    <h3 class="text-white">Emily See</h3>
                                     <p class="text-sm text-white/80"></p>
                                 </div>
                             </div>
-                            <p class="title">Sr. Manager, Legal Operations, CLM</p>
+                            <p class="title">Director & Assistant General Counsel, Commercial Legal</p>
                         </div>
 
-                        <!-- Team Member 4: Anna Huddleston -->
+                        <!-- Team Member 4: Leithia Williams -->
                         <div class="searchable-item team-card">
                             <div class="flex items-center space-x-4 mb-4">
                                 <img 
                                     class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/C4D03AQFrehSmYCKeyQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1517073787082?e=1762387200&v=beta&t=qwYNugNLQtxVTMSLKOImqGmKNeoMwgkf2Ekr3s8rNKQ" 
-                                    alt="Anna Huddleston Profile"
+                                    src="https://media.licdn.com/dms/image/v2/D4E03AQF3C1NHHNZQ0g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1683385378238?e=1762387200&v=beta&t=em_EoQKbprR_aRfe71jXEUZZ4A1RR8Rvu_OCMtgiutQ" 
+                                    alt="Leithia Williams Profile"
                                     onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
                                 >
-                                <div class="initials-placeholder hidden">AH</div>
+                                <div class="initials-placeholder hidden">LW</div>
                                 <div>
-                                    <h3 class="text-white">Anna Huddleston</h3>
+                                    <h3 class="text-white">Leithia Williams</h3>
                                     <p class="text-sm text-white/80"></p>
                                 </div>
                             </div>
-                            <p class="title">Legal Operations Project Manager</p>
+                            <p class="title">Senior Director & Assistant General Counsel, Sales</p>
                         </div>
                         
-                        <!-- Team Member 5: Nicole Deibel -->
+                        <!-- Team Member 5: Elizabeth Vielbig -->
                         <div class="searchable-item team-card">
                             <div class="flex items-center space-x-4 mb-4">
                                 <img 
                                     class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/C5603AQHBQ9WiIdl8zw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1516952323088?e=1762387200&v=beta&t=Vp7zFNBt2Dn2CkMcpTcuqr0aS8ptNKDKanXlPWCicGI" 
-                                    alt="Nicole Deibel Profile"
+                                    src="https://media.licdn.com/dms/image/v2/D5603AQGG-iD9lTz2JA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1668486595014?e=1762387200&v=beta&t=JhusD088kI6VNonftLqU9vLRe2t2yD0JIUxrZ7gks-U" 
+                                    alt="Elizabeth Vielbig Profile"
                                     onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
                                 >
-                                <div class="initials-placeholder hidden">ND</div>
+                                <div class="initials-placeholder hidden">EV</div>
                                 <div>
-                                    <h3 class="text-white">Nicole Deibel</h3>
+                                    <h3 class="text-white">Elizabeth Vielbig</h3>
                                     <p class="text-sm text-white/80"></p>
                                 </div>
                             </div>
-                            <p class="title">Sr. Legal Operations Specialist, Billing & Vendor Management</p>
+                            <p class="title">Director & Assistant General Counsel, Global Channels and Professional Services</p>
                         </div>
-
-                        <!-- NEW Team Member 6: Vighnesh Channa -->
+                        
+                        <!-- Team Member 6: Pamela Euring -->
                         <div class="searchable-item team-card">
                             <div class="flex items-center space-x-4 mb-4">
                                 <img 
                                     class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/D5603AQHBj1ZohZX02g/profile-displayphoto-scale_400_400/B56ZnCtz_mHQAg-/0/1759908416592?e=1762387200&v=beta&t=ZyYM3dM-xYa61LDqLxA-UrBM5jc3S5NLahgx2eCdwLw" 
-                                    alt="Vighnesh Channa Profile"
+                                    src="https://media.licdn.com/dms/image/v2/D5603AQFsMlQbsY4AEg/profile-displayphoto-shrink_400_400/B56ZYhOkxIH0Ak-/0/1744314197338?e=1762387200&v=beta&t=bZvHFMgYr3fPngDwV0ql2pU0gGvAuM8M9NNSgGNRzGo" 
+                                    alt="Pamela Euring Profile"
                                     onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
                                 >
-                                <div class="initials-placeholder hidden">VC</div>
+                                <div class="initials-placeholder hidden">PE</div>
                                 <div>
-                                    <h3 class="text-white">Vighnesh Channa</h3>
+                                    <h3 class="text-white">Pamela Euring</h3>
                                     <p class="text-sm text-white/80"></p>
                                 </div>
                             </div>
-                            <p class="title">Senior Legal Operations Specialist - CLM</p>
+                            <p class="title">Counsel, Public Sector (SLED)</p>
+                        </div>
+                        
+                        <!-- Team Member 7: Kevin Snowden -->
+                        <div class="searchable-item team-card">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/C4E03AQEGAnRGyjquHw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1517751054308?e=1762387200&v=beta&t=yHPaeDRb-46SN9kBcU4TBcMfTjCi2lNvkFSpOrTV9Ww" 
+                                    alt="Kevin Snowden Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">KS</div>
+                                <div>
+                                    <h3 class="text-white">Kevin Snowden</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
+                            </div>
+                            <p class="title">Counsel, Sales</p>
+                        </div>
+                        
+                        <!-- Team Member 8: Matt Hsieh -->
+                        <div class="searchable-item team-card">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/D5603AQES-pd-jB39ZQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1680815936723?e=1762387200&v=beta&t=EHuOhoXDVUe8tngteGgLbxwEQqa3vYNNjkqW3duZOSM" 
+                                    alt="Matt Hsieh Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">MH</div>
+                                <div>
+                                    <h3 class="text-white">Matt Hsieh</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
+                            </div>
+                            <p class="title">Senior Corporate Counsel, Sales</p>
+                        </div>
+                        
+                        <!-- Team Member 9: Shaina Hyder -->
+                        <div class="searchable-item team-card">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/C5103AQFXlYIcDkZ9fA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1516989394918?e=1762387200&v=beta&t=WRy4X_B5atFPKYMHRuprvgBp8t-sy1AxI6cOkdBRd-c" 
+                                    alt="Shaina Hyder Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">SH</div>
+                                <div>
+                                    <h3 class="text-white">Shaina Hyder</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
+                            </div>
+                            <p class="title">Senior Counsel, Sales</p>
+                        </div>
+                        
+                        <!-- Team Member 10: Ashley Sillay -->
+                        <div class="searchable-item team-card">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/D4E03AQGLGB5Dq54YqA/profile-displayphoto-shrink_400_400/B4EZdbIlXrHcAk-/0/1749580667233?e=1762387200&v=beta&t=nZw16cFdNlnH8F1nITDwl0PKUjwn6yHzgy60GTMKzbE" 
+                                    alt="Ashley Sillay Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">AS</div>
+                                <div>
+                                    <h3 class="text-white">Ashley Sillay</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
+                            </div>
+                            <p class="title">Senior Procurement Legal Manager</p>
+                        </div>
+                        
+                        <!-- Team Member 11: Caleigh Campion -->
+                        <div class="searchable-item team-card">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/D4E03AQGIU0Jb-C9x4A/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1682708253518?e=1762387200&v=beta&t=o8IaXCBR9sYIOXyBPBaiP5e3q0BFdoRTFwAytHPeUOA" 
+                                    alt="Caleigh Campion Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">CC</div>
+                                <div>
+                                    <h3 class="text-white">Caleigh Campion</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
+                            </div>
+                            <p class="title">Contracts Negotiator</p>
+                        </div>
+                        
+                        <!-- Team Member 12: Lili Catlett -->
+                        <div class="searchable-item team-card">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/C5603AQEpEmJWXETdZw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1517448458928?e=1762387200&v=beta&t=zjk204doHOwiGY9ef5dMSFsogX7YCmRpbR7ugWjKtjk" 
+                                    alt="Lili Catlett Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">LC</div>
+                                <div>
+                                    <h3 class="text-white">Lili Catlett</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
+                            </div>
+                            <p class="title">Contracts Negotiator</p>
+                        </div>
+                        
+                        <!-- Team Member 13: Lee Sears -->
+                        <div class="searchable-item team-card">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/D4E03AQH3QJohm8MV0g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1727091318501?e=1762387200&v=beta&t=wrO6lVFzwz4d5Y0cFFstjTzjRuOeoKXzysU5FwS4HxE" 
+                                    alt="Lee Sears Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">LS</div>
+                                <div>
+                                    <h3 class="text-white">Lee Sears</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
+                            </div>
+                            <p class="title">Contracts Negotiator</p>
+                        </div>
+                        
+                        <!-- Team Member 14: Rebecca Preston -->
+                        <div class="searchable-item team-card">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <img 
+                                    class="profile-pic" 
+                                    src="https://media.licdn.com/dms/image/v2/D5603AQGQ5JxdkYmCFw/profile-displayphoto-scale_400_400/B56ZjQX2FhIAAg-/0/1755842569622?e=1762387200&v=beta&t=oBbvkqXzoahKS97nDkSSYMo_cqP8sL6Rrft12aLF8n0" 
+                                    alt="Rebecca Preston Profile"
+                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                                >
+                                <div class="initials-placeholder hidden">RP</div>
+                                <div>
+                                    <h3 class="text-white">Rebecca Preston</h3>
+                                    <p class="text-sm text-white/80"></p>
+                                </div>
+                            </div>
+                            <p class="title">Senior Manager, Go-To-Market Legal Effectiveness</p>
                         </div>
 
                     </div>
@@ -597,7 +736,37 @@
                 </div>
             </section>
 
-            <!-- REMOVED: SECTION 4: RESOURCES (Links Added) -->
+            <!-- SECTION 4: RESOURCES (Links Added) -->
+            <section id="resources">
+                <h2 class="collapsible searchable-item" data-target="resources-content">
+                    Resources & Policies
+                    <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
+                </h2>
+                <div id="resources-content" class="content-section">
+                    <div class="space-y-6 searchable-item text-lg">
+                        <!-- NEW CONTENT START -->
+                        
+                        <div class="space-y-1">
+                            <h3 class="text-xl font-bold" style="color: var(--procore-orange);">IronClad Workflows (SSAs and DPAs)</h3>
+                            <!-- MODIFIED: Updated the link for Ironclad SOP to the new Google Doc URL (set to view mode) -->
+                            <p>Use the <a href="https://docs.google.com/document/d/1RF7YBKA_VXgXdmsKclwQ5qotwNX9zJ3Z9J4dHem84x0/view" class="text-gray-800 hover:text-procore-orange font-semibold underline" target="_blank" rel="noopener noreferrer">Ironclad SOP</a> for assistance with SSA and/or DPA workflow issues.</p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h3 class="text-xl font-bold" style="color: var(--procore-orange);">Order Forms & Commercial Terms</h3>
+                            <p><b>Deal Desk</b> owns the Order Form and commercial issues like pricing, payment terms, special deal structures, etc.</p>
+                        </div>
+                        
+                        <div class="space-y-1">
+                            <h3 class="text-xl font-bold" style="color: var(--procore-orange);">How Do I Get an NDA?</h3>
+                            <p>You can use <b>Ironclad</b> to generate and get signatures on NDAs without Legal review. Use the <b>Ironclad tile in Okta</b> to log in, then click “Start Workflow”.</p>
+                        </div>
+
+                        <!-- NEW CONTENT END -->
+                    </div>
+                    <a href="#home" class="back-to-top">Back to Top &uarr;</a>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -775,7 +944,7 @@
             // ------------------- END FIX -------------------
 
 
-            // ------------------- CAROUSEL (3D Mock) LOGIC -------------------
+            // ------------------- CAROUSEL (3D Mock) LOGIC - MODIFIED FOR LEGAL OPS BANNER -------------------
             
             const canvas = document.getElementById('carousel-canvas');
             
@@ -800,11 +969,11 @@
             
             // NOTE: makeTextSprite function removed as it is no longer used for the 3D cube labels.
 
-            // MODIFIED: Centered three abstract cubes around x=0
+            // MODIFIED: Centered three abstract cubes around x=0 (from new Legal Ops code)
             const excitingAreas = [
                 { title: "Legal Tech", color: 0xff5200, position: -1.8 }, 
                 { title: "Process", color: 0x000000, position: 0.0 }, 
-                { title: "Strategy", color: 0xff5200, position: 1.8 } 
+                { title: "Strategy", color: 0xff5200, position: 1.8 }
             ];
 
             function initCarousel() {
@@ -888,7 +1057,7 @@
                     cubes.push(cube);
                     scene.add(cube);
                     
-                    // Removed old sprite logic since the text is now an HTML overlay.
+                    // The sprite logic is intentionally removed here, as the text is now an HTML overlay.
                 });
             }
 

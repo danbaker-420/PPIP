@@ -72,28 +72,35 @@
             flex-shrink: 0; 
         }
 
-        /* Sidebar Titles/Links/Cards Styles (unchanged) */
-        .sidenav-title, .sidenav-title.text-procore-black, .sidenav-title.text-gray-700 { color: var(--procore-light-text) !important; }
+        /* Sidebar Titles/Links/Cards Styles (Refined) */
+        /* Removed .sidenav-title styles as the title structure was modified */
         .sidenav-title-script { font-family: 'Procore Sans', sans-serif; font-weight: 700 !important; letter-spacing: 0; text-shadow: none; font-style: normal; }
-        .sidenav-title.text-xl { font-size: 1.5rem; padding-bottom: 0px !important; }
-        /* UPDATED: Changed text size to text-base */
-        .sidenav-title.text-lg { font-weight: 500; font-size: 1rem; }
         .sidenav-section-title { color: var(--procore-light-text); padding: 8px 16px; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 1rem; }
         .sidenav a, .dropdown-btn { padding: 10px 16px; text-decoration: none; font-size: 15px; color: var(--procore-light-text); border: none; background: none; width: 100%; cursor: pointer; outline: none; transition: background-color 0.2s, color 0.2s; display: flex; align-items: center; text-align: left; border-radius: 4px; }
-        .sidenav a i.ph-magnifying-glass-duotone, .sidenav a i.ph-bell-duotone, .sidenav a i.fa { margin-right: 8px; color: var(--procore-black); }
-        .dropdown-btn { display: flex; justify-content: space-between; }
         .sidenav a:hover, .dropdown-btn:hover { background-color: var(--procore-black); color: var(--procore-light-text); }
+        .dropdown-btn { display: flex; justify-content: space-between; }
         .dropdown-btn.active { background-color: var(--procore-black); color: var(--procore-light-text); font-weight: 600; }
         .dropdown-btn.active .fa-caret-down { color: var(--procore-light-text); }
         .dropdown-container { display: none; background-color: rgba(0, 0, 0, 0.2); padding-left: 10px; border-left: 2px solid var(--procore-black); }
         .dropdown-container a { color: var(--procore-light-text); }
         .dropdown-container a:hover { background-color: rgba(255, 255, 255, 0.1); color: var(--procore-light-text); }
+        
+        /* UPDATED: Change icon color in regular links to white (except for cards) */
+        .sidenav a i.fa { 
+            margin-right: 8px; 
+            color: var(--procore-light-text) !important; /* Changed from black to white */
+        }
+        
         .sidenav-card { background-color: var(--procore-black); color: var(--procore-light-text); padding: 15px; margin: 0 8px 10px 8px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s; display: flex; align-items: center; border-left: 6px solid var(--procore-orange); }
         .sidenav-card:hover { background-color: #333; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
         .sidenav-card a { padding: 0; background: none; color: var(--procore-light-text); font-weight: 600; font-size: 16px; display: flex; align-items: center; width: 100%; }
-        .sidenav-card i.fa { color: var(--procore-orange) !important; margin-right: 12px; width: 32px; text-align: center; transition: color 0.2s; }
-        .sidenav-card:hover i.fa { color: var(--procore-orange) !important; }
-        .sidenav-title { padding: 0 16px 8px; text-align: left; }
+        
+        /* ENSURE CARD ICONS REMAIN ORANGE (FIXED ISSUE) */
+        .sidenav-card a i.fa { color: var(--procore-orange) !important; margin-right: 12px; width: 32px; text-align: center; transition: color 0.2s; }
+        /* NEW RULE: Make Quick Link Card icons white on hover */
+        .sidenav-card:hover a i.fa { 
+            color: var(--procore-light-text) !important; 
+        }
 
 
         /* ------------------- MAIN CONTENT LAYOUT ------------------- */
@@ -255,18 +262,20 @@
     </style>
 </head>
 <body>
-    <!-- Anchor for basic HTML jump to top -->
-    <a id="home"></a>
-
     <!-- ---------------------------------------------------- -->
     <!-- DYNAMIC COMMAND PANEL (Sidebar) -->
     <!-- ---------------------------------------------------- -->
     <div class="sidenav">
-        <!-- ADDED sidenav-title-script CLASS and updated font size/style -->
-        <!-- UPDATED: Changed font size to text-base to make it smaller -->
-        <p class="sidenav-title sidenav-title-script text-base font-bold pt-4">Legal, Regulatory, & Compliance</p>
-        <!-- UPDATED: Changed font size to text-base to make it smaller -->
-        <p class="sidenav-title sidenav-title-script text-base font-normal pb-3 text-gray-700">Product, Privacy, & IP</p>
+        <!-- START FIX 2: Separate Link from Sub-Title Text -->
+        <div class="pt-4">
+            <!-- 1. Legal, Regulatory, & Compliance (LINKED) -->
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/overview" target="_blank" rel="noopener noreferrer" class="block no-underline px-4 hover:bg-black/20 transition rounded-lg">
+                <p class="sidenav-title-script text-base font-bold py-1 m-0" style="color: var(--procore-light-text);">Legal, Regulatory, & Compliance</p>
+            </a>
+            <!-- 2. Product, Privacy, & IP (UNLINKED TEXT) -->
+            <p class="sidenav-title-script text-base font-normal px-4 pb-3 m-0" style="color: var(--procore-light-text); opacity: 0.9;">Product, Privacy, & IP</p>
+        </div>
+        <!-- END FIX 2: Separate Link from Sub-Title Text -->
         <hr class="border-t border-black/30 mx-4">
         
         <p class="sidenav-section-title">Quick Links</p>
@@ -320,13 +329,20 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="https://lucid.app/publicSegments/view/81654677-2115-427d-b6d4-36cad294423b/image.png" target="_blank" rel="noopener noreferrer">LRC Organization Chart</a>
-            <a href="https://docs.google.com/presentation/d/15LcLLyX67i5Ej-g5i5xcA21BfmniJ9CiUO2LXG43ECds/present?slide=id.g149bcedee81_0_524" target="_blank" rel="noopener noreferrer">LRC's Mission, Vision, & Values</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g104d75290de_0_0" target="_blank" rel="noopener noreferrer">LRC Onboarding Deck</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g120438a3235_0_0" target="_blank" rel="noopener noreferrer">Self-Service Legal</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g10d110e127d_0_35" target="_blank" rel="noopener noreferrer">Our Approach</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g1c8883f3b5d_0_508" target="_blank" rel="noopener noreferrer">What We Do</a>
-            <a href="https://docs.google.com/presentation/d/12Q7ik36Y7bLKcU1rfpplxXgpFj17SHqFinYi4FUfPQE/present?slide=id.g113d5c194a2_1_15" target="_blank" rel="noopener noreferrer">When to Engage Us</a>
+            <!-- New 'Who We Are' Link (LRC Organization Chart equivalent) -->
+            <a href="https://lucid.app/lucidchart/0d629cec-77e5-4354-b108-e5bb43e6298f/edit?invitationId=inv_b59f4a0a-d23c-414c-b38e-c6b63aab0c17&referringApp=slack&page=Bep9ZIbsRFwt#" target="_blank" rel="noopener noreferrer">LRC Organization Chart</a>
+            <!-- UPDATED: LRC's Mission, Vision, & Values (Slideshow Mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_6669" target="_blank" rel="noopener noreferrer">LRC's Mission, Vision, & Values</a>
+            <!-- UPDATED: LRC Onboarding Deck (Slideshow Mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g2fba1d88aad_1_11" target="_blank" rel="noopener noreferrer">LRC Onboarding Deck</a>
+            <!-- UPDATED: Self-Service Legal (Slideshow Mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16088" target="_blank" rel="noopener noreferrer">Self-Service Legal</a>
+            <!-- UPDATED: Our Approach (Slideshow Mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_10792" target="_blank" rel="noopener noreferrer">Our Approach</a>
+            <!-- UPDATED: What We Do (Slideshow Mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16021" target="_blank" rel="noopener noreferrer">What We Do</a>
+            <!-- UPDATED: When to Engage Us (Slideshow Mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16075" target="_blank" rel="noopener noreferrer">When to Engage Us</a>
         </div>
 
         <button class="dropdown-btn">
@@ -343,12 +359,15 @@
         <!-- Miscellaneous Links -->
         <p class="sidenav-section-title">Other Links</p>
         <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802943856/LRC+Internal" target="_blank" rel="noopener noreferrer">
+            <!-- Icon color handled by CSS style block in <head> -->
             <i class="fa fa-search"></i>LRC Internal
         </a>
         <a href="https://thecore.procore.com/" target="_blank" rel="noopener noreferrer">
+            <!-- Icon color handled by CSS style block in <head> -->
             <i class="fa fa-globe"></i>The Core
         </a>
         <a href="https://app.smartsheet.com/b/form/119120d755904b3986665a8566d154cc" target="_blank" rel="noopener noreferrer">
+            <!-- Icon color handled by CSS style block in <head> -->
             <i class="fa fa-file-text"></i>Disclosure of Outside Employment
         </a>
         
@@ -358,6 +377,8 @@
     <!-- MAIN CONTENT AREA (Scrollable) -->
     <!-- ---------------------------------------------------- -->
     <div class="main">
+        <!-- START FIX 1: Move anchor inside the scrolling container (.main) for reliable "Back to Top" scrolling -->
+        <a id="home"></a> 
         
         <!-- HEADER -->
         <header id="fixed-header" class="flex items-center justify-between px-6">
@@ -579,28 +600,75 @@
                     <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
                 </h2>
                 <div id="resources-content" class="content-section">
-                    <ul class="space-y-3 list-disc list-inside searchable-item text-lg">
-                        <li class="hover:text-procore-orange transition"><a href="https://docs.google.com/spreadsheets/d/1F8WirJby_errV3KTHd1SXR8sZhzKKRtIyOPRjQgaMIo/edit" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Product & Technology Organizational Model</a></li>
-                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac/policies/handbook__policies/open_source_policy" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Open Source Policy</a></li>
-                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac/policies/handbook__policies/mlai_development_policy" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">AI/ML Policy</a></li>
+                    
+                    <!-- UPDATED: Reorganized to a modern, responsive card grid for better visual appeal -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
-                        <!-- UPDATED LINK -->
-                        <li class="hover:text-procore-orange transition"><a href="https://docs.google.com/document/d/1cOp2BoaqFmbo5e03aLBb9cL6Ywp_skQt7uyLBB-GgDU/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Patent Recognition Program</a></li>
+                        <!-- Resource Card 1: Organizational Model -->
+                        <div class="searchable-item p-4 border border-gray-200 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200 border-l-4 border-l-procore-orange">
+                            <a href="https://docs.google.com/spreadsheets/d/1F8WirJby_errV3KTHd1SXR8sZhzKKRtIyOPRjQgaMIo/edit" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-lg font-semibold text-gray-800 hover:text-procore-orange">
+                                <i class="fa fa-sitemap text-xl text-orange-600 flex-shrink-0"></i>
+                                <span>Product & Technology Organizational Model</span>
+                            </a>
+                        </div>
                         
-                        <!-- UPDATED LINK & TEXT -->
-                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac#countryguides" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Country Guides & Blueprint Handbooks</a></li>
+                        <!-- Resource Card 2: Open Source Policy -->
+                        <div class="searchable-item p-4 border border-gray-200 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200 border-l-4 border-l-procore-orange">
+                            <a href="https://thecore.procore.com/pac/policies/handbook__policies/open_source_policy" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-lg font-semibold text-gray-800 hover:text-procore-orange">
+                                <i class="fa fa-file-code-o text-xl text-orange-600 flex-shrink-0"></i>
+                                <span>Open Source Policy</span>
+                            </a>
+                        </div>
                         
-                        <!-- UPDATED LINK -->
-                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac/policies/handbook__policies/data_classification_and_handling_policy" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Data Classification and Handling Policy</a></li>
+                        <!-- Resource Card 3: AI/ML Policy -->
+                        <div class="searchable-item p-4 border border-gray-200 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200 border-l-4 border-l-procore-orange">
+                            <a href="https://thecore.procore.com/pac/policies/handbook__policies/mlai_development_policy" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-lg font-semibold text-gray-800 hover:text-procore-orange">
+                                <i class="fa fa-file-code-o text-xl text-orange-600 flex-shrink-0"></i>
+                                <span>AI/ML Policy</span>
+                            </a>
+                        </div>
                         
-                        <!-- UPDATED LINK -->
-                        <li class="hover:text-procore-orange transition"><a href="https://thecore.procore.com/pac/policies/handbook__policies/guidelines_for_the_responsible_use_of_generative_ai" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Guidelines for the Responsible Use of Generative AI</a></li>
+                        <!-- Resource Card 4: Patent Recognition Program -->
+                        <div class="searchable-item p-4 border border-gray-200 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200 border-l-4 border-l-procore-orange">
+                            <a href="https://docs.google.com/document/d/1cOp2BoaqFmbo5e03aLBb9cL6Ywp_skQt7uyLBB-GgDU/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-lg font-semibold text-gray-800 hover:text-procore-orange">
+                                <i class="fa fa-flask text-xl text-orange-600 flex-shrink-0"></i>
+                                <span>Patent Recognition Program</span>
+                            </a>
+                        </div>
                         
-                        <!-- REMOVED: How to Report a Concern -->
-
-                        <!-- UPDATED LINK -->
-                        <li class="hover:text-procore-orange transition"><a href="https://docs.google.com/presentation/d/1Jpg0u4PsQS-F3Ym38IvzxyK_t7w5Cjda/edit?slide=id.gb78d2b175a_0_9#slide=id.gb78d2b175a_0_9" target="_blank" rel="noopener noreferrer" class="text-gray-800 hover:text-procore-orange">Procore's IP Program</a></li>
-                    </ul>
+                        <!-- Resource Card 5: Country Guides & Blueprint Handbooks -->
+                        <div class="searchable-item p-4 border border-gray-200 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200 border-l-4 border-l-procore-orange">
+                            <a href="https://thecore.procore.com/pac#countryguides" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-lg font-semibold text-gray-800 hover:text-procore-orange">
+                                <i class="fa fa-map-o text-xl text-orange-600 flex-shrink-0"></i>
+                                <span>Country Guides & Blueprint Handbooks</span>
+                            </a>
+                        </div>
+                        
+                        <!-- Resource Card 6: Data Classification and Handling Policy -->
+                        <div class="searchable-item p-4 border border-gray-200 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200 border-l-4 border-l-procore-orange">
+                            <a href="https://thecore.procore.com/pac/policies/handbook__policies/data_classification_and_handling_policy" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-lg font-semibold text-gray-800 hover:text-procore-orange">
+                                <i class="fa fa-file-code-o text-xl text-orange-600 flex-shrink-0"></i>
+                                <span>Data Classification and Handling Policy</span>
+                            </a>
+                        </div>
+                        
+                        <!-- Resource Card 7: Guidelines for the Responsible Use of Generative AI -->
+                        <div class="searchable-item p-4 border border-gray-200 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200 border-l-4 border-l-procore-orange">
+                            <a href="https://thecore.procore.com/pac/policies/handbook__policies/guidelines_for_the_responsible_use_of_generative_ai" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-lg font-semibold text-gray-800 hover:text-procore-orange">
+                                <i class="fa fa-file-code-o text-xl text-orange-600 flex-shrink-0"></i>
+                                <span>Guidelines for the Responsible Use of Generative AI</span>
+                            </a>
+                        </div>
+                        
+                        <!-- Resource Card 8: Procore's IP Program -->
+                        <div class="searchable-item p-4 border border-gray-200 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200 border-l-4 border-l-procore-orange">
+                            <a href="https://docs.google.com/presentation/d/1Jpg0u4PsQS-F3Ym38IvzxyK_t7w5Cjda/edit?slide=id.gb78d2b175a_0_9#slide=id.gb78d2b175a_0_9" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-lg font-semibold text-gray-800 hover:text-procore-orange">
+                                <i class="fa fa-flask text-xl text-orange-600 flex-shrink-0"></i>
+                                <span>Procore's IP Program</span>
+                            </a>
+                        </div>
+                        
+                    </div>
                     <a href="#home" class="back-to-top">Back to Top &uarr;</a>
                 </div>
             </section>
@@ -757,6 +825,7 @@
             });
 
             // ------------------- FIX: Prevent Hash Links from Reloading Page and Add Smooth Scroll -------------------
+            // This listener handles all hash links, including the back-to-top links.
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     const hash = this.getAttribute('href');
@@ -765,15 +834,26 @@
                     if (hash.length > 1 || hash === '#home') { 
                         e.preventDefault();
                         
-                        // Find the target element
-                            const targetElement = document.querySelector(hash);
+                        // Find the target element, which will be #home or a section ID
+                        const targetElement = document.querySelector(hash);
+                        const scrollContainer = document.querySelector('.main');
                         
-                        if (targetElement) {
-                            // UPDATED: Changed behavior to 'smooth'
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth', 
-                                block: 'start'
-                            });
+                        if (targetElement && scrollContainer) {
+                            // Determine the scroll position relative to the scrolling container (.main)
+                            let scrollTarget = targetElement;
+                            if (hash === '#home') {
+                                // For #home, we want to scroll the container to its absolute top (0)
+                                scrollContainer.scrollTo({
+                                    top: 0,
+                                    behavior: 'smooth'
+                                });
+                            } else {
+                                // For section links, use scrollIntoView on the target element
+                                scrollTarget.scrollIntoView({
+                                    behavior: 'smooth', 
+                                    block: 'start'
+                                });
+                            }
                         }
                     }
                 });
@@ -942,3 +1022,4 @@
     </script>
 </body>
 </html>
+

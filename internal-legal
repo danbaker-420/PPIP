@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legal, Regulatory, & Compliance (LRC) Home</title>
+    <title>Product, Privacy, & Intellectual Property - LRC</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Font Awesome for the caret icon in the dropdowns -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <!-- REMOVED: Oswald font link. Relying on system font stack (Procore Sans fallbacks) with enhanced styling. -->
+    <!-- ADDED: Font used in the 3D Text Sprites -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         /* Procore Custom CSS Variables and Fonts */
@@ -22,17 +22,13 @@
             --header-fixed-height: 80px;
             --nav-fixed-height: 50px;
             --carousel-fixed-height: 200px;
+            --rewards-fixed-height: 64px; /* NEW HEIGHT for Rewards Banner */
             
             /* UPDATED: Visual buffer space below the carousel (24px) */
             --buffer-height: 24px; 
             
-            /* UPDATED total height: 80 + 50 + 200 + 24 = 354px */
-            --total-fixed-height: 354px; 
-        }
-
-        /* ADDED: Smooth Scroll Fix */
-        html {
-            scroll-behavior: smooth;
+            /* UPDATED total height: 80 + 50 + 200 + 64 + 24 = 418px */
+            --total-fixed-height: 418px; 
         }
 
         /* Procore Sans Fallback Stack - Cannot load proprietary font directly */
@@ -42,14 +38,10 @@
             /* Placeholder: If the font were available, it would be loaded here */
         }
         
-        /* UPDATED: Custom class for the banner text. Using fallback stack, maximizing weight and spacing. */
-        .brand-banner-text {
-            /* Reverting to Procore Sans Fallback stack (Arial/Helvetica) for brand alignment */
-            font-weight: 900 !important; /* Maximized boldness to emulate Pitch Sans weight */
-            letter-spacing: 0.08em; /* Add generous letter spacing for "wide" look */
-        }
-        
         /* ------------------- DESKTOP DASHBOARD LAYOUT (DEFAULT) ------------------- */
+        html {
+            scroll-behavior: smooth; /* ADDED: Native smooth scrolling for page-level hash links */
+        }
         html, body {
             height: 100%;
             margin: 0;
@@ -92,17 +84,13 @@
         .sidenav-title.text-lg { font-weight: 500; font-size: 1rem; }
         .sidenav-section-title { color: var(--procore-light-text); padding: 8px 16px; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 1rem; }
         .sidenav a, .dropdown-btn { padding: 10px 16px; text-decoration: none; font-size: 15px; color: var(--procore-light-text); border: none; background: none; width: 100%; cursor: pointer; outline: none; transition: background-color 0.2s, color 0.2s; display: flex; align-items: center; text-align: left; border-radius: 4px; }
-        .sidenav a:hover, .dropdown-btn:hover { background-color: var(--procore-black); color: var(--procore-light-text); }
-        /* NEW CLASS to remove default underline from resource links */
-        .resource-link {
-            text-decoration: none !important;
+        /* UPDATED: Changed general icon color to white for "Other Links" visibility */
+        .sidenav a i.ph-magnifying-glass-duotone, .sidenav a i.ph-bell-duotone, .sidenav a i.fa { 
+            margin-right: 8px; 
+            color: var(--procore-light-text); /* Changed from --procore-black to --procore-light-text */
         }
-        .resource-link:hover {
-            text-decoration: underline !important;
-        }
-        
-        /* Sidebar Styling continues... (unchanged from last version) */
         .dropdown-btn { display: flex; justify-content: space-between; }
+        .sidenav a:hover, .dropdown-btn:hover { background-color: var(--procore-black); color: var(--procore-light-text); }
         .dropdown-btn.active { background-color: var(--procore-black); color: var(--procore-light-text); font-weight: 600; }
         .dropdown-btn.active .fa-caret-down { color: var(--procore-light-text); }
         .dropdown-container { display: none; background-color: rgba(0, 0, 0, 0.2); padding-left: 10px; border-left: 2px solid var(--procore-black); }
@@ -111,34 +99,11 @@
         .sidenav-card { background-color: var(--procore-black); color: var(--procore-light-text); padding: 15px; margin: 0 8px 10px 8px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s; display: flex; align-items: center; border-left: 6px solid var(--procore-orange); }
         .sidenav-card:hover { background-color: #333; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
         .sidenav-card a { padding: 0; background: none; color: var(--procore-light-text); font-weight: 600; font-size: 16px; display: flex; align-items: center; width: 100%; }
-        /* QUICK LINK ICON COLOR: Default is Orange */
         .sidenav-card i.fa { color: var(--procore-orange) !important; margin-right: 12px; width: 32px; text-align: center; transition: color 0.2s; }
-        /* QUICK LINK ICON COLOR: Hover is now White */
+        /* UPDATED: Quick Links card icon hover color to white */
         .sidenav-card:hover i.fa { color: var(--procore-light-text) !important; }
         .sidenav-title { padding: 0 16px 8px; text-align: left; }
-        .sidenav-title-link {
-            text-decoration: none;
-            display: block;
-            padding: 16px 16px 8px;
-            color: var(--procore-light-text);
-        }
-        .sidenav-title-link:hover {
-            text-decoration: underline;
-        }
-        .redirect-link {
-            color: #ccc !important;
-            font-weight: 500 !important;
-        }
-        .redirect-link:hover {
-            color: var(--procore-light-text) !important;
-            background-color: transparent !important;
-            text-decoration: none;
-        }
 
-        /* NEW RULE: Add spacing to icons within standard sidebar links (e.g., Other Links) */
-        .sidenav > a > i.fa {
-            margin-right: 8px; 
-        }
 
         /* ------------------- MAIN CONTENT LAYOUT ------------------- */
         .main {
@@ -149,6 +114,7 @@
             overflow-y: auto; 
             position: relative; 
             scroll-padding-top: var(--total-fixed-height); 
+            scroll-behavior: smooth; /* ADDED: Smooth scrolling for internal main area */
         }
 
         /* ------------------- FIXED HEADER & NAV (DESKTOP) ------------------- */
@@ -160,6 +126,63 @@
         #carousel-canvas { background-color: var(--procore-stone); position: absolute; top: calc(var(--header-fixed-height) + var(--nav-fixed-height)); 
                            display: block; width: 100%; height: var(--carousel-fixed-height); }
         
+        /* NEW: Rewards Banner Positioning */
+        #fixed-rewards-banner { 
+            background-color: var(--procore-stone);
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            height: var(--rewards-fixed-height); 
+            width: 100%; 
+            z-index: 900; 
+            position: absolute; 
+            top: calc(var(--header-fixed-height) + var(--nav-fixed-height) + var(--carousel-fixed-height)); 
+            display: flex; 
+            align-items: center; 
+            overflow: hidden; /* Crucial for animation effect */
+        }
+        
+        /* UPDATED: Scroll-In Animation (moves from right edge to stop at the center) */
+        @keyframes scroll-in {
+            /* We need to calculate the initial position based on the content width to center it when it stops */
+            /* Since we don't know the exact pixel width, translateX(100%) puts the right edge of the text at the right edge of the container. 
+               We'll use a large negative value for the 100% stop state to ensure it looks centered. A dedicated centered text (non-marquee) is better for non-looping. */
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(0); } /* Stops at 0, which is left-aligned within its container */
+        }
+
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap; /* Keep content on one line during animation */
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center the container content */
+        }
+
+        .marquee-content {
+            display: inline-block;
+            /* Use the new scroll-in animation, running once, then holding the final state */
+            animation: scroll-in 20s ease-out forwards; 
+            white-space: nowrap; /* Keep content on one line */
+            text-align: center;
+            padding: 0 1rem; 
+        }
+
+        /* NEW STYLE: Increase emoji size in the marquee */
+        .marquee-emoji {
+            font-size: 2.25rem; /* Equivalent to text-4xl */
+            line-height: 1; /* Keep line height tight */
+            vertical-align: middle;
+            margin: 0 0.5rem;
+        }
+        
+        /* Adjust the buffer position to be after the rewards banner */
+        .h-6 { 
+            position: absolute; 
+            top: calc(var(--header-fixed-height) + var(--nav-fixed-height) + var(--carousel-fixed-height) + var(--rewards-fixed-height)); 
+            width: 100%;
+        }
+
         #content-wrapper {
             /* Pushes content below the fixed elements on desktop */
             padding-top: var(--total-fixed-height); 
@@ -202,11 +225,11 @@
             }
             
             /* 4. FIXED HEADER/CAROUSEL: Reset positioning to relative flow */
-            /* These elements now stack naturally before the sidebar */
-            #fixed-header, #fixed-nav, #carousel-canvas {
+            /* Ensure the new rewards banner and the buffer flow naturally on mobile */
+            #fixed-header, #fixed-nav, #carousel-canvas, #fixed-rewards-banner, .h-6 { 
                 position: relative !important;
                 top: auto !important;
-                height: auto !important; /* Allow height to be determined by content or mobile styles */
+                height: auto !important; 
             }
             
             /* 5. MOBILE STICKY NAV: Make the Nav Bar sticky for easy access */
@@ -243,214 +266,124 @@
         .content-section { padding: 2rem; background-color: white; border: 1px solid #ddd; border-top: none; border-radius: 0 0 0.5rem 0.5rem; margin-bottom: 2rem; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.3s ease-out; }
         .back-to-top { display: block; text-align: right; margin-top: 2rem; color: var(--procore-orange); font-weight: 600; text-decoration: none; transition: color 0.2s; }
         .back-to-top:hover { color: #e04400; text-decoration: underline; }
-        
-        /* --- START ORG CHART STYLES (UPDATED) --- */
-        
-        /* NEW: Profile picture styling for IMG tag - INCREASED SIZE FROM 50px TO 70px */
-        .profile-pic {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--procore-orange);
-            background-color: #fff;
-            flex-shrink: 0;
-            margin: 0 auto 0.75rem auto; /* Match initials margin */
-            display: block; /* Ensure it respects margin auto */
-        }
-
-        /* NEW: Placeholder style for text initials (if no image loads) - INCREASED SIZE AND FONT */
-        .initials-placeholder {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 70px; 
-            height: 70px; 
-            border-radius: 50%;
-            background-color: var(--procore-black);
-            color: white;
-            font-weight: bold;
-            font-size: 1.5rem; /* Increased font size */
-            flex-shrink: 0;
-            border: 3px solid var(--procore-orange);
-            margin: 0 auto 0.75rem auto; /* Center initials */
-        }
-        
-        /* Specific override for Leslie's picture size to match others */
-        .assistant-box .profile-pic {
-            width: 70px !important;
-            height: 70px !important;
-            font-size: 1.5rem !important;
-        }
-        .assistant-box .initials-placeholder {
-            width: 70px !important;
-            height: 70px !important;
-            font-size: 1.5rem !important;
-        }
-        
-        /* FIX: Style for Ben Singer's card when floating alone at the top */
-        .clo-card-float {
-            /* Allows the card to be centered but maintain a max-width consistent with the direct report card sizes */
-            max-width: 350px; /* Use a reasonable max width */
-            width: 100%;
-            margin: 0 auto; /* Center the card */
-            
-            /* Inherit team member box styling */
+        .team-card { 
             background-color: var(--procore-stone); 
             color: var(--procore-dark-text); 
-            padding: 1.5rem 1rem; 
+            padding: 1.5rem; 
             border-radius: 0.75rem; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
             border-left: 6px solid var(--procore-orange); 
             transition: transform 0.2s; 
             display: flex; 
             flex-direction: column; 
-            min-height: 250px; 
-            text-align: center;
+            height: 100%; 
+            justify-content: space-between; 
+            min-height: 220px; 
         }
-        .clo-card-float:hover {
-            background-color: #e6dacd; /* Lighter stone on hover */
-            transform: translateY(-5px); 
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); 
-        }
-
-        /* REVERTED/UPDATED STYLE for Org Chart Boxes to match old team card aesthetic */
-        .team-member-box { 
-            /* REVERTED: Making this card always take full available width in its grid column */
-            width: 100%;
-            /* Reverting styles to look like the old cards */
-            background-color: var(--procore-stone); 
-            color: var(--procore-dark-text); 
-            /* REDUCED horizontal padding slightly to give the button more room */
-            padding: 1.5rem 1rem; 
-            border-radius: 0.75rem; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-            border-left: 6px solid var(--procore-orange); /* Main accent */
-            transition: transform 0.2s; 
-            display: flex; 
-            flex-direction: column; 
-            height: 100%; /* Important: makes all grid items match height of tallest item */
-            justify-content: flex-start; 
-            min-height: 250px; /* Increased min-height for uniform look and space */
-            text-align: center; /* CENTERED TEXT for image placeholder */
+        /* NEW: Profile picture styling for IMG tag */
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--procore-orange);
+            background-color: #fff;
+            flex-shrink: 0;
         }
         
-        .team-member-box:hover {
-            background-color: #e6dacd; /* Lighter stone on hover */
-            transform: translateY(-5px); 
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); 
+        /* NEW: Placeholder style for text initials (if no image loads) */
+        .initials-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--procore-black);
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            border: 3px solid var(--procore-orange);
         }
-
-        .team-member-box h3 { 
-            color: var(--procore-black); 
-            font-weight: 700; 
-            font-size: 1.125rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .team-member-box .title { 
-            color: var(--procore-orange); 
-            font-weight: 600; 
-            font-size: 0.9rem;
-            margin-bottom: 0.1rem; 
-            line-height: 1.2; 
-        }
-
-        .team-member-box .location {
-            color: var(--procore-dark-text);
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.75rem; 
-        }
-
-        /* New style for the clickable portal button wrapper */
-        .portal-button-wrapper {
-            margin-top: auto; /* CRITICAL: Pushes the button to the bottom of the flex card */
-            padding: 0; /* Ensures button takes maximum possible width */
-            display: flex; 
-            justify-content: center; /* Center the button in the container */
-            width: 100%; 
-        }
-
-        /* Style for the clickable team function (Portal Button) - FINAL FIX APPLIED HERE */
-        .portal-button {
-            /* Flexbox for centering text */
-            display: flex; 
-            align-items: center; /* Vertical Center */
-            justify-content: center; /* Horizontal Center */
-            
-            /* FIX: Always fill 100% of the wrapper (which is 100% of the card padding-area) up to a max-width */
-            width: 100%; 
-            max-width: 250px; /* SLIGHTLY INCREASED MAX-WIDTH */
-            min-width: 100px; 
-            
-            height: 54px; 
-            padding: 8px 10px; 
-            
-            text-align: center; 
-
-            /* COLOR & FONT */
-            background-color: #8d6e5b; 
-            color: var(--procore-light-text) !important; 
-            font-weight: 700; 
-            font-size: 0.9rem; /* Base font size */
-            letter-spacing: -0.05em; 
-            white-space: normal; /* CRITICAL: Allows text to wrap onto multiple lines */
-            
-            /* AESTHETICS */
-            border-radius: 9999px; 
-            text-decoration: none !important;
-            transition: background-color 0.2s, color 0.2s, transform 0.1s;
-            
-            /* Embossed/Raised Button Effect */
-            border: 1px solid #73594b; 
-            box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2) inset, 
-                        0 3px 5px rgba(0, 0, 0, 0.4); 
-        }
-        .portal-button:hover {
-            background-color: #a38977; 
-            color: var(--procore-light-text) !important;
-            transform: scale(1.02);
-            box-shadow: 0 1px 1px rgba(255, 255, 255, 0.3) inset,
-                        0 5px 10px rgba(0, 0, 0, 0.5);
+        .team-card-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
         }
         
-        /* NEW FIX: Reduces font size for all screens up to 1024px */
-        @media screen and (max-width: 1024px) {
-            .portal-button {
-                font-size: 0.8rem; 
-                padding: 6px 8px; 
-            }
-        }
-        /* FINAL FIX: Reduces font size even further for the narrowest mobile views (under 640px) */
-        @media screen and (max-width: 640px) {
-            .portal-button {
-                font-size: 0.75rem; /* Reduced to 0.75rem to guarantee fit on the narrowest screen for the longest title */
-                padding: 6px 8px; 
-            }
-            /* Adjust CLO/Assistant display on smallest screens to stack vertically */
-            .clo-assistant-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-            .assistant-box {
-                margin-top: 0 !important;
-            }
-        }
-        
-        /* Custom styling for the CLO box to keep it distinct */
-        /* REMOVED .clo-box styles to match direct report cards */
-        
-        .assistant-box {
-            background-color: var(--procore-stone);
-            border-top: 4px solid var(--procore-orange);
-            padding: 0.75rem;
+        #team-content .grid { display: grid; grid-template-rows: auto; align-items: stretch; }
+        .team-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); }
+        .team-card h3 { color: var(--procore-black); font-weight: 700; font-size: 1.25rem; }
+        .team-card p { color: var(--procore-dark-text); }
+        .team-card .title { color: var(--procore-orange); font-weight: 600; font-size: 1rem; }
+
+        /* Custom Card Styles for Onboarding/Ongoing Links */
+        .link-card {
+            background-color: #fff;
+            padding: 1rem;
             border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            height: 100%; /* Important for grid alignment */
+        }
+        .link-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            border-color: var(--procore-orange);
+        }
+        .link-card a {
+            display: block;
+            font-weight: 600;
+            color: var(--procore-black);
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .link-card a:hover {
+            color: var(--procore-orange);
+        }
+        /* Style for the New Hire Center container */
+        .link-card-group {
+            border-left: 4px solid var(--procore-orange);
+            padding-left: 1rem;
+        }
+        /* New style for subcategory boxes within Ongoing Resources */
+        .resource-group-box {
+            background-color: #f7f7f7;
+            padding: 1.25rem;
+            border-left: 4px solid var(--procore-orange);
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            height: 100%;
         }
         
-        /* --- END ORG CHART STYLES (UPDATED) --- */
+        /* Specific style adjustment for links inside the resource-group-box when they need to look like the ongoing links */
+        .resource-group-box .link-style {
+            display: block;
+            padding: 0.5rem 0.25rem;
+            margin-bottom: 0.25rem;
+            color: var(--procore-dark-text);
+            text-decoration: none;
+            transition: color 0.1s;
+        }
+        /* UPDATED: Unified link hover style for all link-style elements */
+        .resource-group-box .link-style:hover {
+            color: var(--procore-orange);
+            background-color: rgba(0, 0, 0, 0.03); /* subtle light gray hover */
+            border-radius: 0.25rem;
+        }
+        
+        /* UNIFIED STYLES: Tech Subheading class now used for all sub-group titles in Technology and Collaboration */
+        .tech-subheading {
+            font-size: 1.125rem; /* text-lg equivalent */
+            font-weight: 700; /* font-bold equivalent */
+            color: var(--procore-black); /* Make the text dark/black */
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
     </style>
 </head>
 <body>
@@ -461,11 +394,17 @@
     <!-- DYNAMIC COMMAND PANEL (Sidebar) -->
     <!-- ---------------------------------------------------- -->
     <div class="sidenav">
-        <!-- WRAPPED TITLE in an anchor tag and applied sidebar link class for top alignment -->
-        <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/overview?homepageId=2548859784" target="_blank" rel="noopener noreferrer" class="sidenav-title-link">
-            <p class="sidenav-title sidenav-title-script text-base font-bold">Legal, Regulatory, & Compliance</p>
+        <!-- Sidebar Title - Legal, Regulatory, & Compliance Information Library -->
+        <p class="sidenav-title sidenav-title-script text-base font-bold py-4">Legal, Regulatory, & Compliance Information Library</p>
+        
+        <!-- NEW LINK: Legal, Regulatory, & Compliance Home Link -->
+        <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/overview?homepageId=2548859784" target="_blank" rel="noopener noreferrer" class="mx-2 mb-2 p-2 rounded-lg bg-black/30 hover:bg-black/50 transition">
+             <!-- Icon with inline style to ensure white color against the orange sidebar background -->
+             <i class="fa fa-home fa-lg" style="margin-right: 8px; color: var(--procore-light-text);"></i>
+             <span class="font-semibold">LRC Space Home</span>
         </a>
-        <!-- REMOVED: "Product, Privacy, & IP" line per user request in previous step -->
+        <!-- END NEW LINK -->
+
         <hr class="border-t border-black/30 mx-4">
         
         <p class="sidenav-section-title">Quick Links</p>
@@ -505,14 +444,13 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            <!-- UPDATED: Added redirect-link class for clarity -->
-            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942567/Corporate+Securities+M+A" target="_blank" rel="noopener noreferrer" class="redirect-link">Corporate, Securities, & M&A</a>
-            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942131/Go-to-Market" target="_blank" rel="noopener noreferrer" class="redirect-link">Commercial Legal</a>
-            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802909360/Employment+Litigation+Ethics+Compliance" target="_blank" rel="noopener noreferrer" class="redirect-link">Employment, Litigation, Ethics & Compliance</a>
-            <!-- UPDATED URL and class for Legal Operations -->
-            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942240/Legal+Operations" class="redirect-link">Legal Operations</a>
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942567/Corporate+Securities+M+A" target="_blank" rel="noopener noreferrer">Corporate, Securities, & M&A</a>
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942131/Go-to-Market" target="_blank" rel="noopener noreferrer">Commercial Legal</a>
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802909360/Employment+Litigation+Ethics+Compliance" target="_blank" rel="noopener noreferrer">Employment, Litigation, Ethics & Compliance</a>
+            <!-- UPDATED URL for Legal Operations -->
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942240/Legal+Operations">Legal Operations</a>
             <!-- UPDATED URL for Product, Privacy, & IP (Active Page Link) -->
-            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942349/Product+Privacy+Intellectual+Property" class="active bg-black/50 font-semibold redirect-link">Product, Privacy, & IP</a>
+            <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942349/Product+Privacy+Intellectual+Property" class="active bg-black/50 font-semibold">Product, Privacy, & IP</a>
         </div>
         
         <button class="dropdown-btn">
@@ -520,16 +458,20 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            <!-- REMOVED INLINE STYLE to rely on new .resource-link class -->
-            <a href="https://lucid.app/lucidchart/0d629cec-77e5-4354-b108-e5bb43e6298f/edit?invitationId=inv_b59f4a0a-d23c-414c-b38e-c6b63aab0c17&referringApp=slack&page=Bep9ZIbsRFwt#" target="_blank" rel="noopener noreferrer" class="resource-link">Who We Are - LRC Organization Chart</a>
-            <!-- REMOVED INLINE STYLE to rely on new .resource-link class -->
-            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16021#slide=id.g32d9e5d1d8f_0_16021" target="_blank" rel="noopener noreferrer" class="resource-link">What We Do</a>
-            <!-- REMOVED INLINE STYLE to rely on new .resource-link class -->
-            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16075#slide=id.g32d9e5d1d8f_0_16075" target="_blank" rel="noopener noreferrer" class="resource-link">When to Engage Us</a>
-            <!-- UPDATED: LRC's Mission, Vision, & Values link to the new URL -->
-            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_6669" target="_blank" rel="noopener noreferrer" class="resource-link">LRC's Mission, Vision, & Values</a>
-            <!-- REMOVED INLINE STYLE to rely on new .resource-link class -->
-            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g2fba1d88aad_1_11#slide=id.g2fba1d88aad_1_11" target="_blank" rel="noopener noreferrer" class="resource-link">LRC Onboarding Deck</a>
+            <!-- UPDATED URL for LRC Organization Chart (who we are links) -->
+            <a href="https://lucid.app/lucidchart/0d629cec-77e5-4354-b108-e5bb43e6298f/edit?invitationId=inv_b59f4a0a-d23c-414c-b38e-c6b63aab0c17&referringApp=slack&page=Bep9ZIbsRFwt#" target="_blank" rel="noopener noreferrer">LRC Organization Chart</a>
+            <!-- UPDATED URL for LRC's Mission, Vision, & Values (Slideshow mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_6669" target="_blank" rel="noopener noreferrer">LRC's Mission, Vision, & Values</a>
+            <!-- UPDATED URL for LRC Onboarding Deck (Slideshow/Edit mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/edit?slide=id.g2fba1d88aad_1_11#slide=id.g2fba1d88aad_1_11" target="_blank" rel="noopener noreferrer">LRC Onboarding Deck</a>
+            <!-- UPDATED URL for Self-Service Legal (Slideshow mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16088" target="_blank" rel="noopener noreferrer">Self-Service Legal</a>
+            <!-- UPDATED URL for Our Approach (Slideshow mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_10792" target="_blank" rel="noopener noreferrer">Our Approach</a>
+            <!-- UPDATED URL for What We Do (Slideshow/Edit mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/edit?slide=id.g32d9e5d1d8f_0_16021#slide=id.g32d9e5d1d8f_0_16021" target="_blank" rel="noopener noreferrer">What We Do</a>
+            <!-- UPDATED URL for When to Engage Us (Slideshow/Edit mode) -->
+            <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/edit?slide=id.g32d9e5d1d8f_0_16075#slide=id.g32d9e5d1d8f_0_16075" target="_blank" rel="noopener noreferrer">When to Engage Us</a>
         </div>
 
         <button class="dropdown-btn">
@@ -542,6 +484,9 @@
         </div>
 
         <hr class="border-t border-black/30 mx-4 my-3">
+        
+        <p class="sidenav-section-title">Navigation</p>
+        <!-- The remaining navigation links were implicitly converted to static links in the previous steps -->
 
         <p class="sidenav-section-title">Other Links</p>
         <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802943856/LRC+Internal" target="_blank" rel="noopener noreferrer">
@@ -572,35 +517,58 @@
                     class="header-logo"
                     onerror="this.onerror=null; this.src='https://placehold.co/200x40/ff5200/ffffff?text=PROCORE';"
                 >
-                <!-- UPDATED: H1 no longer uses orbitron-text to avoid conflicts -->
-                <h1 class="text-white text-2xl font-bold tracking-tight text-center md:text-left hidden sm:block">
-                    Legal, Regulatory, & Compliance (LRC)
-                </h1>
+                <!-- UPDATED: Replaced main header title -->
+                <h1 class="text-white text-2xl font-bold tracking-tight text-center md:text-left hidden sm:block">Legal, Regulatory, & Compliance Information Library</h1>
             </div>
             
-            <!-- DESKTOP Search Bar REMOVED per user request -->
+            <!-- DESKTOP Search Bar (Hidden on Mobile) -->
+            <div class="hidden md:flex items-center space-x-2">
+                <i class="ph-magnifying-glass-duotone text-white text-xl"></i>
+                <input
+                    id="desktopSearchInput"
+                    type="text"
+                    placeholder="Search this page..."
+                    class="p-2 rounded-lg bg-white/10 text-white placeholder-white/70 border border-white/20 focus:outline-none focus:border-white transition searchable-input"
+                >
+            </div>
         </header>
 
         <!-- FIXED NAVIGATION (Table of Contents) -->
         <nav id="fixed-nav" class="p-2 shadow-lg">
             <ul class="flex flex-wrap gap-2 justify-center md:justify-start">
-                <li><a href="#about-us" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">About Us</a></li>
-                <li><a href="#meet-the-team" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Meet the Team</a></li>
-                <!-- REMOVED: Back to Top link from fixed navigation per user request -->
+                <!-- UPDATED NAVIGATION LINKS -->
+                <li><a href="#about-us" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Onboarding & Ongoing</a></li>
+                <li><a href="#internal-resources-management" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Internal Resources Management</a></li>
+                <li><a href="#collaboration-section" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Collaboration</a></li>
+                <li><a href="#expensing-spend" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Expensing & Spend Requests</a></li>
             </ul>
         </nav>
 
         <!-- CAROUSEL BANNER (Simple 3D Animation Placeholder) -->
         <canvas id="carousel-canvas"></canvas>
 
-        <!-- MODIFIED: Banner text now uses the primary brand font stack via inheritance -->
+        <!-- Banner Text: LRC Information Library -->
         <div id="legal-ops-text" 
             class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none" 
             style="z-index: 950; top: calc(var(--header-fixed-height) + var(--nav-fixed-height) + 100px);"> 
-            <p class="brand-banner-text text-4xl sm:text-5xl md:text-6xl font-bold text-center p-3 rounded-lg bg-white/70 shadow-lg" 
-                style="color: var(--procore-black); text-shadow: 1px 1px 2px rgba(0,0,0,0.1); border-left: 4px solid var(--procore-orange); border-right: 4px solid var(--procore-orange);">
-                The LRC Team
+            <p class="text-3xl sm:text-4xl md:text-5xl font-bold text-center p-3 rounded-lg bg-white/70 shadow-lg" 
+                style="font-family: 'Orbitron', sans-serif; color: var(--procore-black); text-shadow: 1px 1px 2px rgba(0,0,0,0.1); border-left: 4px solid var(--procore-orange); border-right: 4px solid var(--procore-orange);">
+                LRC Information Library
             </p>
+        </div>
+
+        <!-- NEW: THIN FIXED REWARDS BANNER (Now Scrolls Once and Stops) -->
+        <div id="fixed-rewards-banner" class="flex items-center px-4 shadow-inner text-sm md:text-base font-medium">
+            <div class="marquee-container">
+                <p class="marquee-content text-procore-black font-medium">
+                    <!-- UPDATED: Added marquee-emoji class for larger size -->
+                    <span class="marquee-emoji">✨</span> 
+                    Would you like to <b>reward a teammate for a notable or exceptional performance</b>?
+                    Check out the <a href="https://docs.google.com/presentation/d/1qu27uLI6A7lHfAjNxmnxGVF7mRSSaOEbx1y8hRE36wU/present?slide=id.p" target="_blank" class="text-procore-orange font-bold underline hover:underline">LRC Rewards & Recognition Program</a> and 
+                    <a href="https://procoretech.atlassian.net/servicedesk/customer/portal/114/group/458/create/5004" target="_blank" class="text-procore-orange font-bold underline hover:underline">submit a request today.</a>
+                    <span class="marquee-emoji">🎉</span>
+                </p>
+            </div>
         </div>
         
         <!-- UPDATED: Dedicated 24px buffer of white space -->
@@ -619,202 +587,350 @@
                 >
             </div>
             
-            <!-- SECTION 1: ABOUT US -->
+            <!-- SECTION 1: ONBOARDING & ONGOING (Refactored Getting Started) -->
             <section id="about-us">
                 <h2 class="collapsible searchable-item" data-target="about-content">
-                    About Us
+                    Onboarding & Ongoing
                     <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
                 </h2>
                 <div id="about-content" class="content-section">
-                    <div class="text-lg space-y-4">
-                        <!-- UPDATED: Removed underline style from text links -->
-                        <p>Explore this site and our <a href="#meet-the-team" class="text-procore-orange hover:text-orange-800 font-semibold transition">practice group portals</a> (Our Teams ⬅️) to learn more about <a href="https://lucid.app/lucidchart/0d629cec-77e5-4354-b108-e5bb43e6298f/edit?invitationId=inv_b59f4a0a-d23c-414c-b38e-c6b63aab0c17&referringApp=slack&page=Bep9ZIbsRFwt#" target="_blank" rel="noopener noreferrer" class="text-procore-orange hover:text-orange-800 font-semibold transition"><span class="font-bold">who we are</span></a>, <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16021#slide=id.g32d9e5d1d8f_0_16021" target="_blank" rel="noopener noreferrer" class="text-procore-orange hover:text-orange-800 font-semibold transition"><span class="font-bold">what we do</span></a>, <a href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_16075#slide=id.g32d9e5d1d8f_0_16075" target="_blank" rel="noopener noreferrer" class="text-procore-orange hover:text-orange-800 font-semibold transition"><span class="font-bold">when to engage us</span></a>, and <span class="font-bold">how to contact us</span> to support your business goals.</p>
+                    
+                    <!-- New structure using a single container, then internal grids -->
+                    
+                    <!-- -------------------- Getting Started (New Hire Center) - NOW SIDE-BY-SIDE -------------------- -->
+                    <h3 class="text-xl font-bold text-procore-orange mb-3">Getting Started (New Hire Center)</h3>
+                    
+                    <!-- Grid for the three sub-sections to sit side-by-side -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 searchable-item">
                         
-                        <p>Problem-solvers and strategic-thinkers, the <span class="font-bold">LRC team's goal is to get our internal partners around the globe to “yes”</span> while protecting Procore against unnecessary risk.</p>
-                        
-                        <p>Our work touches every organization within the company and includes <span class="font-bold">negotiating contracts, supporting product development and launches, keeping up with ever-changing regulations, managing Procore’s intellectual property portfolio, and more</span>. By driving results and implementing best practices, we proudly support the company and our employees as we scale around the world.</p>
+                        <!-- Column 1: Core Onboarding -->
+                        <div class="resource-group-box h-full">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🚀 Core Onboarding & Development</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- ADDED link-style class -->
+                                <a class="link-style" href="https://thecore.procore.com/build_your_career/new_hire_center" target="_blank" rel="noopener noreferrer">New Hire Center</a>
+                                <!-- UPDATED LINK, ADDED link-style class -->
+                                <a class="link-style" href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/edit?slide=id.g2fba1d88aad_1_11#slide=id.g2fba1d88aad_1_11" target="_blank" rel="noopener noreferrer">LRC Onboarding Deck</a>
+                                <!-- ADDED link-style class -->
+                                <a class="link-style" href="https://thecore.procore.com/pac/career_performance/career__performance/performance_engagement" target="_blank" rel="noopener noreferrer">Performance Engagement</a>
+                                <!-- UPDATED LINK, ADDED link-style class -->
+                                <a class="link-style" href="https://docs.google.com/presentation/d/14kt2eqydLiwIUgjUdTFdkJHecJA5S1JcnChUsPr8RBM/present?slide=id.g32d9e5d1d8f_0_6669" target="_blank" rel="noopener noreferrer">LRC's Mission, Vision & Values</a>
+                            </div>
+                        </div>
 
-                        <!-- REMOVED: The Practice Group Portals section -->
+                        <!-- Column 2: Team Structure & Strategy (Now to the right of Core Onboarding) -->
+                        <div class="resource-group-box h-full">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🗺️ Team Structure & Strategy</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- ADDED link-style class -->
+                                <a class="link-style" href="https://lucid.app/lucidchart/0d629cec-77e5-4354-b108-e5bb43e6298f/edit?invitationId=inv_b59f4a0a-d23c-414c-b38e-c6b63aab0c17&referringApp=slack&page=Bep9ZIbsRFwt#" target="_blank" rel="noopener noreferrer">LRC Team Org Chart</a>
+                                <!-- ADDED link-style class -->
+                                <a class="link-style" href="https://docs.google.com/spreadsheets/d/1PKN7h-_kR72yXhgJkCXvjT4Y-kp045V-PJkg0-OsyMo/edit#gid=1228671068" target="_blank" rel="noopener noreferrer">LRC Coverage Areas</a>
+                                <!-- ADDED link-style class -->
+                                <a class="link-style" href="https://docs.google.com/spreadsheets/d/1nmN2qHivdEKT1iU4un5Cj3smxa86K2IjDkC8fJaUjmk/" target="_blank" rel="noopener noreferrer">LRC Directory</a>
+                                <!-- ADDED link-style class -->
+                                <a class="link-style" href="https://docs.google.com/presentation/d/1WQ7OaZor5YVpinIQ4D4YdYwNnA7obHm2vemtsBEwJD0/edit#slide=id.g41c91dc624_2_1033" target="_blank" rel="noopener noreferrer">LRC Leadership QBRs</a>
+                            </div>
+                        </div>
+
+                        <!-- Column 3: Legal Industry Insights (MOVED HERE) -->
+                        <div class="resource-group-box h-full">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🧠 Legal Industry Insights</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- MOVED: Legal Department Metrics -->
+                                <a class="link-style" href="https://drive.google.com/file/d/1t1Ivk2aPpfrnFx-6NN7oYGQfcHzNRNzG/view" target="_blank" rel="noopener noreferrer">Legal Department Metrics</a>
+                                <a class="link-style" href="https://www.acc.com/sites/default/files/resources/upload/MM2.0-Booklet-DIGITAL%20Final.pdf" target="_blank" rel="noopener noreferrer">ACC Legal Operations Maturity Model</a>
+                                <a class="link-style" href="https://drive.google.com/file/d/1F6nB7lrBDsGsFO3jxHEQXlb_5dkX5JLI/view?usp=drive_link" target="_blank" rel="noopener noreferrer">2024 GC Survey Report (Axiom)</a>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Back to Top target updated to #fixed-header -->
-                    <a href="#fixed-header" class="back-to-top">Back to Top &uarr;</a>
+                    
+                    <!-- -------------------- ONGOING RESOURCES -------------------- -->
+                    <h3 class="text-xl font-bold text-procore-orange mb-3 pt-4">Ongoing Resources</h3>
+                    
+                    <!-- UPDATED: Changed grid to lg:grid-cols-3 to accommodate Branding & Templates -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 searchable-item">
+                        
+                        <!-- Subcategory 1: Policies & Corporate -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">📜 Policies & Corporate Essentials</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- ADDED link-style class to all links below -->
+                                <a class="link-style" href="https://thecore.procore.com/pac/policies" target="_blank" rel="noopener noreferrer">Procore Handbook & Policies</a>
+                                <a class="link-style" href="https://thecore.procore.com/" target="_blank" rel="noopener noreferrer">The Core</a>
+                                <a class="link-style" href="https://thecore.procore.com/about/our_news/procorian_news" target="_blank" rel="noopener noreferrer">The Core News</a>
+                                <a class="link-style" href="https://thecore.procore.com/pac/health_wellness_benefits" target="_blank" rel="noopener noreferrer">Health & Wellness Benefits Resources</a>
+                                <a class="link-style" href="https://thecore.procore.com/pac/holidays_time_away/holidays__time_away/global_holidays_2025" target="_blank" rel="noopener noreferrer">Global Holidays</a>
+                                <a class="link-style" href="https://thecore.procore.com/pac/pay_stock/pay__stock/2025_us_bi_weekly_payroll_schedule" target="_blank" rel="noopener noreferrer">US Payroll Calendar</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/41/group/346/create/1925" target="_blank" rel="noopener noreferrer">Employee ID Badge Order Request</a>
+                            </div>
+                        </div>
+
+                        <!-- Subcategory 2: Financial & Governance -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">💰 Financial & Governance</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- ADDED link-style class to all links below -->
+                                <a class="link-style" href="https://investors.procore.com/financials/quarterly-results/default.aspx" target="_blank" rel="noopener noreferrer">Corporate & Securities Quarterly Results (including 10Q & 10K)</a>
+                                <a class="link-style" href="https://investors.procore.com/financials/sec-filings/default.aspx" target="_blank" rel="noopener noreferrer">Proxy and Other SEC Filings</a>
+                                <a class="link-style" href="https://drive.google.com/file/d/1PFWpnevSpst5CZN1pO0sjmKug7x_0i5g/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Procore Entity Org Chart</a>
+                            </div>
+                        </div>
+
+                        <!-- Subcategory 3: Branding, Comms & Templates (Now occupies one column instead of two) -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🎨 Branding & Templates</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- ADDED link-style class to all links below -->
+                                <a class="link-style" href="https://thecore.procore.com/pac/general_guidance/guidance/procore_brand_portal" target="_blank" rel="noopener noreferrer">Procore Brand Guide ™️</a>
+                                <a class="link-style" href="https://www.procore.design/" target="_blank" rel="noopener noreferrer">Procore Brand Resource Center</a>
+                                <a class="link-style" href="https://thecore.procore.com/pac/general_guidance/guidance/elevate_your_comms" target="_blank" rel="noopener noreferrer">Elevate Your Comms</a>
+                                <a class="link-style" href="https://thecore.procore.com/pac/general_guidance/guidance/procore_acronym_list" target="_blank" rel="noopener noreferrer">Procore Acronym List</a>
+                                <a class="link-style" href="https://docs.google.com/presentation/d/1IBeC-x5CKk1cy59lJ-OXPCD5jecXwNR37y2lDkW-Y9Q/" target="_blank" rel="noopener noreferrer">Procore Assets Deck Template</a>
+                                <a class="link-style" href="https://drive.google.com/drive/folders/1P-xuccXV9HWtkfSJ-V_bKB0cL-T399T8" target="_blank" rel="noopener noreferrer">Procore Presentation Folder</a>
+                                <a class="link-style" href="https://drive.google.com/drive/folders/1UvYfUZ7i4S6KyHfqchHUSgpxIRG2QjvQ" target="_blank" rel="noopener noreferrer">Procore Letterhead</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Subcategory 4: Technology and Service Desks (Now takes full width on lg below the three columns) -->
+                        <div class="resource-group-box lg:col-span-3">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">💻 Technology and Service Desks</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                
+                                <!-- New Column 1: Enterprise Systems & Tools -->
+                                <div class="link-card-group h-full">
+                                    <h5 class="tech-subheading">Enterprise Systems & Tools</h5>
+                                    <div class="space-y-2 text-sm">
+                                        <!-- ADDED link-style class to all links below -->
+                                        <a class="link-style" href="https://procore.okta.com/" target="_blank" rel="noopener noreferrer">Okta</a>
+                                        <a class="link-style" href="https://procore.zoom.us/profile" target="_blank" rel="noopener noreferrer">Zoom</a>
+                                        <a class="link-style" href="https://drive.google.com/drive/u/0/folders/0AHA0f3xniVZnUk9PVA" target="_blank" rel="noopener noreferrer">Zoom Backgrounds</a>
+                                        <a class="link-style" href="https://lucid.app/documents#/documents?folder_id=recent" target="_blank" rel="noopener noreferrer">Lucidchart</a>
+                                    </div>
+                                </div>
+                                
+                                <!-- New Column 2: IT & Asset Requests -->
+                                <div class="link-card-group h-full">
+                                    <h5 class="tech-subheading">IT & Asset Requests</h5>
+                                    <div class="space-y-2 text-sm">
+                                        <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/38/group/202" target="_blank" rel="noopener noreferrer">Request a New or Loaner Laptop</a>
+                                        <span class="link-style cursor-pointer" onclick="console.log('GlobalProtect VPN Connection (for Tableau) clicked. Note: If you have issues connecting to Tableau, ensure GlobalProtect VPN is connected.');">GlobalProtect VPN Connection (for Tableau)</span>
+                                        <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/38/group/108" target="_blank" rel="noopener noreferrer">Application Access Requests</a>
+                                    </div>
+                                </div>
+                                
+                                <!-- New Column 3: LRC & Internal Service Desks -->
+                                <div class="link-card-group h-full">
+                                    <h5 class="tech-subheading">LRC & Internal Service Desks</h5>
+                                    <div class="space-y-2 text-sm">
+                                        <!-- All links below already have link-style class -->
+                                        <a class="link-style" href="https://procoretech.atlassian.net/jira/dashboards/20962" target="_blank" rel="noopener noreferrer">LRC Technology Group Workstation</a>
+                                        <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/114" target="_blank" rel="noopener noreferrer">LRC Service Desk</a>
+                                        <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portals" target="_blank" rel="noopener noreferrer">Procore Help Center</a>
+                                        <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/38" target="_blank" rel="noopener noreferrer">IT Support / KM - IT Support</a>
+                                        <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/41" target="_blank" rel="noopener noreferrer">Workplace Experience</a>
+                                        <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/47/group/-1" target="_blank" rel="noopener noreferrer">Financial Systems</a>
+                                        <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/89" target="_blank" rel="noopener noreferrer">Procore Web Portal</a>
+                                        <span class="link-style cursor-pointer" onclick="console.log('Internal Communications placeholder clicked. This is a reference link.')">Internal Communications</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <a href="#fixed-nav" class="back-to-top">Back to Top &uarr;</a>
                 </div>
             </section>
 
-            <!-- SECTION 2: MEET THE TEAM (Organization Chart) -->
-            <section id="meet-the-team">
+            <!-- SECTION 2: INTERNAL RESOURCES MANAGEMENT (Team Removed) -->
+            <section id="internal-resources-management">
                 <h2 class="collapsible searchable-item" data-target="team-content">
-                    Meet the Team - Organizational Chart
+                    Internal Resources Management
                     <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
                 </h2>
                 <div id="team-content" class="content-section">
                     
-                    <div class="space-y-6">
+                    <!-- UPDATED: Main grid uses lg:grid-cols-3 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 searchable-item">
                         
-                        <!-- CLO (Top Level) & ASSISTANT (Moved to the right of CLO) -->
-                        <div class="flex flex-col items-center justify-center text-center">
-                            
-                            <!-- Wrapper for CLO Box and Assistant -->
-                            <div class="flex flex-wrap items-start justify-center w-full max-w-4xl gap-4 clo-assistant-container">
-                                
-                                <!-- CLO Box (Now using custom float style for sizing) -->
-                                <div class="p-4 rounded-lg shadow-xl clo-card-float">
-                                    <img 
-                                        class="profile-pic" 
-                                        src="https://s27.q4cdn.com/467206001/files/images/mgmt/about_leadership_bensinger.jpg" 
-                                        alt="Ben Singer Profile"
-                                        onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
-                                    >
-                                    <!-- FIX: The initials placeholder is now correctly shown if the image fails -->
-                                    <div class="initials-placeholder hidden">BS</div>
-                                    <h3 class="font-semibold">Ben Singer</h3>
-                                    <!-- Role uses the .title style for orange text -->
-                                    <p class="title">Chief Legal Officer (CLO)</p> 
-                                    <!-- Location uses the .location style -->
-                                    <p class="location">US - California - Carpinteria 📌</p>
-                                    <!-- ADDED DUMMY BUTTON WRAPPER TO MATCH HEIGHT OF OTHER CARDS -->
-                                    <div class="portal-button-wrapper">
-                                        <!-- Note: This button is present purely for card height uniformity on the CLO box -->
-                                        <a href="#" onclick="event.preventDefault()" class="portal-button" style="visibility: hidden; background-color: transparent; border: none; box-shadow: none; cursor: default;">CLO Office Link</a>
-                                    </div>
-                                    <!-- END DUMMY BUTTON -->
-                                </div>
-                                
-                                <!-- Leslie Butiong (Assistant) -->
-                                <div class="assistant-box text-sm text-center flex-shrink-0 mt-8 sm:mt-8">
-                                    <img 
-                                        class="profile-pic" 
-                                        src="https://media.licdn.com/dms/image/v2/C5603AQHcGAS6AhTP8g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1598465500399?e=1762387200&v=beta&t=6qeaDbvH6mYPYQGIBDxm9ro6ZjvrtHnPXDs1PGcOlWU" 
-                                        alt="Leslie Butiong Profile"
-                                        onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
-                                    >
-                                    <div class="initials-placeholder hidden">LB</div>
-                                    <p class="font-semibold">Leslie Butiong</p>
-                                    <p class="text-xs text-orange-600">Sr. Executive Assistant</p>
-                                    <!-- UPDATED: Leslie's Location -->
-                                    <p class="text-xs text-gray-600">US - California 📌</p>
-                                </div>
+                        <!-- -------------------- CAREER DEVELOPMENT & LEARNING (RESTRUCTURED TO 3 COLUMNS) -------------------- -->
+                        
+                        <!-- Column 1: Attorney Roles -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">⚖️ Attorney Career Guides</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/presentation/d/1A9I1A_tT2YldzLZNpkhKTGEHV94wIwQ8Qf0ovt_mLbw/edit#slide=id.g22178beed36_0_0" target="_blank" rel="noopener noreferrer">LRC Career Maps: Counsel</a>
+                                <a class="link-style" href="https://docs.google.com/document/d/1SQ0jpSR0Da8yuaAfBmNMrpANb65E-S6O/edit#heading=h.htg85c4s0ojl" target="_blank" rel="noopener noreferrer">Competency Guide: Counsel Roles</a>
                             </div>
                         </div>
 
-                        <!-- Vertical line down from CLO for Direct Reports -->
-                        <div class="flex justify-center -mt-4">
-                            <div class="w-px h-10 bg-gray-400"></div>
-                        </div>
-                        
-                        <!-- Horizontal Line connecting CLO to Direct Reports -->
-                        <div class="flex justify-center">
-                            <div class="h-px w-full max-w-4xl bg-gray-400 -mt-8"></div>
+                        <!-- Column 2: Non-Attorney Roles (RENAMED) -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">💼 Non-Attorney Career Guides</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/presentation/d/1d0TSxxWPXEYfEkETFCXIlvBlrJ930TBZWgVSZZzzmc/edit?slide=id.gb0f7b36baa_0_2394#slide=id.gb0f7b36baa_0_2394" target="_blank" rel="noopener noreferrer">LRC Career Maps: Support & Legal Ops</a>
+                                <a class="link-style" href="https://docs.google.com/document/d/17hT_NN4v8eqRpJM6mF4H2EfRdhwZhciA/edit" target="_blank" rel="noopener noreferrer">Competency Guide: Support & Legal Ops Roles</a>
+                            </div>
                         </div>
 
-                        <!-- Direct Reports (Bottom Row Grid) -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-6 pt-4">
-                            
-                            <!-- Alice Bisgrove -->
-                            <div class="team-member-box">
-                                <img 
-                                    class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/D4D03AQHzBpUkltWM2w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1680824167014?e=1762387200&v=beta&t=ILnRHRIrBo3yBnI4ZRT36MhsO-8A96D4lKnmP__5-cU" 
-                                    alt="Alice Bisgrove Profile"
-                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
-                                >
-                                <div class="initials-placeholder hidden">AB</div>
-                                <h3 class="font-semibold">Alice Bisgrove</h3>
-                                <!-- TITLE ONLY (Orange) -->
-                                <p class="title">SVP & Deputy General Counsel</p>
-                                <p class="location">US - New York 📌</p>
-                                <!-- TEAM FUNCTION BUTTON (Wrapper pushes to bottom) -->
-                                <p class="portal-button-wrapper">
-                                    <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942131/Go-to-Market" target="_blank" rel="noopener noreferrer" class="portal-button">Commercial Legal</a>
-                                </p>
+                        <!-- Column 3: General Development & Performance (MOVED & UPDATED) -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">📈 General Development & Performance</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/document/d/1TdPks4HpkXqjjx4E_TpDclo50j4zKEHqE18M8nul290/edit" target="_blank" rel="noopener noreferrer">LRC Learning & Development Guidelines</a>
+                                
+                                <a class="link-style" href="https://www.linkedin.com/learning/" target="_blank" rel="noopener noreferrer">LinkedIn Learning</a>
+                                <a class="link-style" href="https://www.pli.edu/programs/sec-reporting--fasb-forum-for-mid-sized--smaller-companies?t=live&tCode=RPX3_ADWRD&gclid=Cj0KCQjw0bunBhD9ARIsAAZl0E3ECEw0JL9wSORGQJLWXn7ha9LtK1nmmCsiXQ8uYFmfliuAmbTLu870aAkjZEALw_wcB" target="_blank" rel="noopener noreferrer">Practising Law Institute (PLI)</a>
+                                <a class="link-style" href="https://thecore.procore.com/pac/career_performance/career__performance/performance_engagement" target="_blank" rel="noopener noreferrer">Performance Engagement</a>
+                                <a class="link-style" href="https://thecore.procore.com/build_your_career" target="_blank" rel="noopener noreferrer">Build Your Career</a>
+                                <a class="link-style" href="https://docs.google.com/presentation/d/1R3Wjl2q7dnSOXZu1sY3CoekhRa7fj9LvuXj4qMX4Vlo/edit#slide=id.p1" target="_blank" rel="noopener noreferrer">MSS Walking Deck for Manager</a>
                             </div>
-                            
-                            <!-- Mick Cox -->
-                            <div class="team-member-box">
-                                <img 
-                                    class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/D5603AQG6S54PablgEA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1683865625477?e=1762387200&v=beta&t=02-MndhQ3PPGUPCUTNDsJU-U6vxx4M9gxw3mDUUk5Ew" 
-                                    alt="Mick Cox Profile"
-                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
-                                >
-                                <div class="initials-placeholder hidden">MC</div>
-                                <h3 class="font-semibold">Mick Cox</h3>
-                                <!-- TITLE ONLY (Orange) -->
-                                <p class="title">VP, Legal Operations</p>
-                                <p class="location">US - California - Bay Area 📌</p>
-                                <!-- TEAM FUNCTION BUTTON (Wrapper pushes to bottom) -->
-                                <p class="portal-button-wrapper">
-                                    <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942240/Legal+Operations" target="_blank" rel="noopener noreferrer" class="portal-button">Legal Operations</a>
-                                </p>
+                        </div>
+                        
+                        <!-- -------------------- CONTINGENT WORKFORCE MANAGEMENT (CWM) (SPLIT INTO TWO SECTIONS) -------------------- -->
+                        
+                        <!-- NEW SECTION: FTE Management (1 column) -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">👤 FTE Management</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/document/d/1CGnChvk4pjHC0jIpSYV8AnIrVv47bW0PGga-zZA_KSQ/edit" target="_blank" rel="noopener noreferrer">FTE Onboarding / Offboarding Guidelines</a>
                             </div>
-                            
-                            <!-- Marlene Nicolas -->
-                            <div class="team-member-box">
-                                <img 
-                                    class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/C5603AQEN3l1roN-x3w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1585529832150?e=1762387200&v=beta&t=tuagb1HbGIBVvsHvJB9GBEbDpqlCWYYIN-U7zVQt974" 
-                                        alt="Marlene Nicolas Profile"
-                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
-                                >
-                                <div class="initials-placeholder hidden">MN</div>
-                                <h3 class="font-semibold">Marlene Nicolas</h3>
-                                <!-- TITLE ONLY (Orange) -->
-                                <p class="title">VP & Assoc. Gen. Counsel</p>
-                                <p class="location">US - Texas - Austin 📌</p>
-                                <!-- TEAM FUNCTION BUTTON (Wrapper pushes to bottom) -->
-                                <p class="portal-button-wrapper">
-                                    <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802909360/Employment+Litigation+Ethics+Compliance" target="_blank" rel="noopener noreferrer" class="portal-button">Employment, Litigation, & Compliance (ELC)</a>
-                                </p>
-                            </div>
-                            
-                            <!-- Paul Kafadar -->
-                            <div class="team-member-box">
-                                <img 
-                                    class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/C5603AQEE4gf5sTCXrQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1537637343639?e=1762387200&v=beta&t=BHwlT-3QHWZlyajjjU8UgnLR-Sw0GUXy9G04tDO_Lyc" 
-                                    alt="Paul Kafadar Profile"
-                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
-                                >
-                                <div class="initials-placeholder hidden">PK</div>
-                                <h3 class="font-semibold">Paul Kafadar</h3>
-                                <!-- TITLE ONLY (Orange) -->
-                                <p class="title">VP & Assoc. Gen. Counsel</p>
-                                <p class="location">US - California - Carpinteria 📌</p>
-                                <!-- TEAM FUNCTION BUTTON (Wrapper pushes to bottom) -->
-                                <p class="portal-button-wrapper">
-                                    <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942349/Product+Privacy+Intellectual+Property" target="_blank" rel="noopener noreferrer" class="portal-button">Product, Privacy, & IP (PPIP)</a>
-                                </p>
-                            </div>
-                            
-                            <!-- Travis Shrout -->
-                            <div class="team-member-box">
-                                <img 
-                                    class="profile-pic" 
-                                    src="https://media.licdn.com/dms/image/v2/D5603AQG45nZmu-E6NQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1728535674662?e=1762387200&v=beta&t=CS3d2KLURCJGIvfRHTopPqk5c9rV8ViV0Bg81y-ZkxA" 
-                                    alt="Travis Shrout Profile"
-                                    onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
-                                >
-                                <div class="initials-placeholder hidden">TS</div>
-                                <h3 class="font-semibold">Travis Shrout</h3>
-                                <!-- TITLE ONLY (Orange) -->
-                                <p class="title">VP & Assoc. Gen. Counsel</p>
-                                <p class="location">US - California - Carpinteria 📌</p>
-                                <!-- TEAM FUNCTION BUTTON (Wrapper pushes to bottom) -->
-                                <p class="portal-button-wrapper">
-                                    <a href="https://procoretech.atlassian.net/wiki/spaces/LRC/pages/2802942567/Corporate+Securities+M+A" target="_blank" rel="noopener noreferrer" class="portal-button">Corporate, Securities, & M&A</a>
-                                </p>
+                        </div>
+
+                        <!-- CWM SECTION: Remaining Contractor/ALSP Links (2 columns) -->
+                        <div class="resource-group-box lg:col-span-2">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🤝 Contingent Workforce Management (CWM)</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/document/d/13bZBnwPlBREFA3LdP-4l4eDh0CEB2pC6C93BVI8FrEk/edit" target="_blank" rel="noopener noreferrer">ALSP Onboarding / Offboarding Workflow</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/114/group/458/create/5005" target="_blank" rel="noopener noreferrer">Manager ALSP Onboarding Intake Form</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/31/group/2574/create/2545" target="_blank" rel="noopener noreferrer">Contractor Extension</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/38/group/283/create/1275" target="_blank" rel="noopener noreferrer">IT Service Desk - Contractor Onboarding (ops only)</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/38/group/283/create/1731" target="_blank" rel="noopener noreferrer">IT Service Desk - Contractor Offboarding (ops only)</a>
+                                <a class="link-style" href="https://docs.google.com/document/d/1Hl7vE3MJwPBdDWm3xN9n4Zsu3R91KbVW4E89aFSTSek/edit" target="_blank" rel="noopener noreferrer">Contractor Onboarding (email from IT)</a>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Back to Top target updated to #fixed-header -->
-                    <a href="#fixed-header" class="back-to-top">Back to Top &uarr;</a>
+                    <a href="#fixed-nav" class="back-to-top">Back to Top &uarr;</a>
                 </div>
             </section>
 
-            <!-- SECTION 4: RESOURCES (Links Added) -->
-            <!-- REMOVED: Section 4 - Resources & Policies per user request -->
+            <!-- SECTION 3: RESOURCES (Renamed to Collaboration) -->
+            <section id="collaboration-section">
+                <h2 class="collapsible searchable-item" data-target="resources-content">
+                    Collaboration
+                    <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
+                </h2 >
+                <div id="resources-content" class="content-section">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 searchable-item">
 
+                        <!-- -------------------- SHARE DRIVES & EMAIL GROUPS -------------------- -->
+                        <div class="resource-group-box lg:col-span-3">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">📧📁 LRC Share Drives & Email Groups</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                
+                                <!-- Share Drives -->
+                                <div class="space-y-2 text-sm link-card-group">
+                                    <!-- UPDATED CLASS -->
+                                    <h5 class="tech-subheading">Share Drives</h5>
+                                    <!-- ADDED link-style class to all links below -->
+                                    <a class="link-style" href="https://drive.google.com/drive/folders/0AKbQ4vNp-k_hUk9PVA" target="_blank" rel="noopener noreferrer">Legal Share Drive</a>
+                                    <a class="link-style" href="https://drive.google.com/drive/folders/0AM8z3WJIrUuaUk9PVA" target="_blank" rel="noopener noreferrer">Legal Ops Share Drive</a>
+                                </div>
+                                
+                                <!-- Email Groups (Internal) -->
+                                <div class="space-y-2 text-sm link-card-group">
+                                    <!-- UPDATED CLASS -->
+                                    <h5 class="tech-subheading">Internal Email Groups</h5>
+                                    <!-- ADDED link-style class to all links below -->
+                                    <a class="link-style" href="mailto:legalbeagles@" target="_blank" rel="noopener noreferrer">legalbeagles@</a>
+                                    <a class="link-style" href="mailto:lrc@" target="_blank" rel="noopener noreferrer">lrc@</a>
+                                    <a class="link-style" href="mailto:lrcleadership@" target="_blank" rel="noopener noreferrer">lrcleadership@</a>
+                                    <a class="link-style" href="mailto:legalgtmteam@" target="_blank" rel="noopener noreferrer">legalgtmteam@</a>
+                                </div>
+
+                                <!-- Email Groups (Billing/External) -->
+                                <div class="space-y-2 text-sm link-card-group">
+                                    <!-- UPDATED CLASS -->
+                                    <h5 class="tech-subheading">Billing & Notices</h5>
+                                    <!-- ADDED link-style class to all links below -->
+                                    <a class="link-style" href="mailto:legalbilling@" target="_blank" rel="noopener noreferrer">legalbilling@</a>
+                                    <a class="link-style" href="mailto:simplelegal-svc@" target="_blank" rel="noopener noreferrer">simplelegal-svc@</a>
+                                    <a class="link-style" href="mailto:legalnotice@" target="_blank" rel="noopener noreferrer">legalnotice@</a>
+                                    <a class="link-style" href="mailto:texasform1295@" target="_blank" rel="noopener noreferrer">texasform1295@</a>
+                                    <a class="link-style" href="mailto:whistleblowerpolicy@" target="_blank" rel="noopener noreferrer">whistleblowerpolicy@</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <a href="#fixed-nav" class="back-to-top">Back to Top &uarr;</a>
+                </div>
+            </section>
+
+            <!-- SECTION 4: EXPENSING & SPEND REQUESTS (New Section) -->
+            <section id="expensing-spend">
+                <h2 class="collapsible searchable-item" data-target="expensing-content">
+                    Expensing & Spend Requests
+                    <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
+                </h2>
+                <div id="expensing-content" class="content-section">
+                    
+                    <!-- UPDATED: Changed grid to 3 columns on large screens to make the expense sections line up -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 searchable-item">
+                        
+                        <!-- Subcategory 1: Core Expense & Reimbursement Policies (MODIFIED) -->
+                        <!-- REMOVED lg:col-span-2 to make it take up 1 column on large screens -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">💸 Core Expense & Reimbursement Policies</h4>
+                            <!-- Changed grid to 1 column on all screens, as the links fit vertically -->
+                            <div class="grid grid-cols-1 gap-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://thecore.procore.com/pac/finance__procurement/finance__purchasing/global_travel__expense_guidelines" target="_blank" rel="noopener noreferrer">Global Travel & Expense Guidelines</a>
+                                <a class="link-style" href="https://thecore.procore.com/pac/health_wellness_benefits/reimbursements/cell_phone_smart_phone_reimbursement" target="_blank" rel="noopener noreferrer">Cell Phone/Smart Phone Reimbursement Policy</a>
+                                <a class="link-style" href="https://thecore.procore.com/pac/perks_reimbursements/perks__reimbursements/monthly_internet_reimbursement_program_details" target="_blank" rel="noopener noreferrer">Internet Reimbursement Policy</a>
+                            </div>
+                        </div>
+
+                        <!-- Subcategory 2: Procore Perks (NEW CARD) -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🎁 Procore Perks</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://procore.igloocommunities.com/resources/perks__reimbursements/procore_perks" target="_blank" rel="noopener noreferrer">Procore Perks Program Overview</a>
+                                <a class="link-style" href="https://docs.google.com/spreadsheets/d/1WF5XfV_-Ttt9y28YVzKXrX77aMxNcBKU677FQqfoX2s/" target="_blank" rel="noopener noreferrer">Procore Perks - Quarterly Deadlines and Monthly Payout Schedule</a>
+                            </div>
+                        </div>
+
+                        <!-- Subcategory 3: Spending & Purchasing (UPDATED STRUCTURE) -->
+                        <!-- REMOVED lg:col-span-1 to make it take up 1 column on large screens -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🛒 Spending & Purchasing</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://thecore.procore.com/pac/finance__procurement/finance__purchasing/procore_plastic_card_user_manual" target="_blank" rel="noopener noreferrer">Procore Plastic Card Application</a>
+                                <a class="link-style" href="https://docs.google.com/presentation/d/13SYXho7p5RjwArsKbOBIXhgrUaaPTU_aXE-4YzkNKf0/present?slide=id.p" target="_blank" rel="noopener noreferrer">Overview of How to Buy Things</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/114/group/458/create/5004" target="_blank" rel="noopener noreferrer">Spend Request Form</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Subcategory 4: Coupa Support (Now occupies all 3 columns below the others) -->
+                        <div class="resource-group-box lg:col-span-3">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🙋 Coupa Support</h4>
+                            <div class="space-y-2 text-sm">
+                                <a class="link-style block font-semibold text-lg" href="https://procoretech.atlassian.net/servicedesk/customer/portal/24/create/3704" target="_blank" rel="noopener noreferrer">Need Help? Create a ticket here!</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <a href="#fixed-nav" class="back-to-top">Back to Top &uarr;</a>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -859,12 +975,15 @@
             const header = document.getElementById('fixed-header');
             const nav = document.getElementById('fixed-nav');
             const carousel = document.getElementById('carousel-canvas');
+            // NEW: Rewards banner element
+            const rewardsBanner = document.getElementById('fixed-rewards-banner');
             const contentWrapper = document.getElementById('content-wrapper');
 
             function updateContentPadding() {
                 if (window.innerWidth > 1024) {
                     // Only apply padding if the fixed elements are active (desktop view)
-                    const totalFixedHeaderHeight = header.offsetHeight + nav.offsetHeight + carousel.offsetHeight;
+                    // Includes Header, Nav, Carousel, Rewards Banner, and Buffer
+                    const totalFixedHeaderHeight = header.offsetHeight + nav.offsetHeight + carousel.offsetHeight + rewardsBanner.offsetHeight;
                     
                     // CRITICAL: We also add the buffer height here to ensure the content starts after the buffer element
                     const totalHeightWithBuffer = totalFixedHeaderHeight + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--buffer-height'));
@@ -931,10 +1050,7 @@
             const searchableItems = document.querySelectorAll('.searchable-item');
             
             const syncInputs = (sourceInput, targetInput) => {
-                // ADDED: Check if the target element exists before attempting to set its value
-                if (targetInput) { 
-                    targetInput.value = sourceInput.value;
-                }
+                targetInput.value = sourceInput.value;
             };
 
             const filterContent = (query) => {
@@ -948,18 +1064,9 @@
                         if (item.classList.contains('collapsible')) {
                             item.style.display = 'flex';
                         } else if (item.closest('.grid')) {
-                            // Only show grid items if they match the search query
-                            item.style.display = 'flex'; 
+                            item.style.display = 'flex';
                         } else if (item.tagName === 'LI') {
                             item.style.display = 'list-item';
-                        } else if (item.closest('#team-content')) {
-                            // Allow visibility for org chart elements if the query is empty
-                            if (lowerCaseQuery === '') {
-                                item.style.display = 'block';
-                            } else {
-                                // For team members, hide if no match
-                                item.style.display = 'none'; 
-                            }
                         } else {
                             item.style.display = 'block';
                         }
@@ -967,97 +1074,36 @@
                         item.style.display = 'none';
                     }
                 });
-                
-                // Special handling for the grid container itself to avoid hiding the whole section
-                const teamContent = document.getElementById('team-content');
-                if (teamContent) {
-                    // Check direct children of the grid container (the team-member-box elements)
-                    const directReportBoxes = teamContent.querySelectorAll('.grid > .team-member-box');
-                    let visibleDirectReports = 0;
-
-                    directReportBoxes.forEach(box => {
-                        // Check if the individual box's content matches the query
-                        const textContent = box.textContent.toLowerCase();
-                        if (textContent.includes(lowerCaseQuery)) {
-                            box.style.display = 'flex'; // Use flex because it was originally flex/column
-                            visibleDirectReports++;
-                        } else {
-                            box.style.display = 'none';
-                        }
-                    });
-
-                    // Hide the vertical/horizontal lines (structure) if a search is active and nothing matches
-                    const structureElements = teamContent.querySelectorAll('.flex.justify-center');
-                    const cloBox = teamContent.querySelector('.clo-card-float');
-                    const assistantBox = teamContent.querySelector('.assistant-box');
-
-                    if (lowerCaseQuery !== '') {
-                        // If searching, only show CLO and Assistant if their names match
-                        if (cloBox && !cloBox.textContent.toLowerCase().includes(lowerCaseQuery)) {
-                            cloBox.closest('.clo-assistant-container').style.display = 'none';
-                        } else if (cloBox) {
-                            cloBox.closest('.clo-assistant-container').style.display = 'flex';
-                        }
-                        
-                        // Note: Assistant is checked by the container above
-
-                        // Hide the structural lines only if no direct reports match and the CLO/Assistant don't match
-                        if (visibleDirectReports === 0) {
-                             structureElements.forEach(el => el.style.display = 'none');
-                        }
-                        
-                    } else {
-                        // If search is cleared, show all elements
-                        directReportBoxes.forEach(box => box.style.display = 'flex');
-                        structureElements.forEach(el => el.style.display = 'flex');
-                        const cloContainer = teamContent.querySelector('.clo-assistant-container');
-                        if (cloContainer) cloContainer.style.display = 'flex';
-                        
-                        // Ensure the main grid container is visible if there are results
-                        if (directReportBoxes.length > 0) {
-                            teamContent.querySelector('.grid').style.display = 'grid';
-                        }
-                    }
-                }
             };
 
-            // ADDED: Check for element existence before adding event listeners
-            if (desktopSearch) { 
-                desktopSearch.addEventListener('input', (e) => {
-                    syncInputs(desktopSearch, mobileSearch);
-                    filterContent(e.target.value);
-                });
-            }
+            desktopSearch.addEventListener('input', (e) => {
+                syncInputs(desktopSearch, mobileSearch);
+                filterContent(e.target.value);
+            });
 
-            // ADDED: Check for element existence before adding event listeners
-            if (mobileSearch) { 
-                mobileSearch.addEventListener('input', (e) => {
-                    syncInputs(mobileSearch, desktopSearch);
-                    filterContent(e.target.value);
-                });
-            }
+            mobileSearch.addEventListener('input', (e) => {
+                syncInputs(mobileSearch, desktopSearch);
+                filterContent(e.target.value);
+            });
 
             // ------------------- FIX: Prevent Hash Links from Reloading Page and Add Smooth Scroll -------------------
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     const hash = this.getAttribute('href');
                     
-                    // CRITICAL FIX: Re-enable preventDefault to stop the immediate jump,
-                    // allowing CSS smooth scroll (set in a<style> section) to take over.
-                    // This is especially needed for back-to-top links now pointing to a fixed element.
-                    if (hash.length > 1 || hash === '#home' || hash === '#fixed-header') { 
-                        e.preventDefault(); 
+                    // Check if it's a hash link pointing within the page
+                    if (hash.length > 1 || hash === '#home') { 
+                        e.preventDefault();
                         
-                        const targetElement = document.querySelector(hash);
+                        // Find the target element
+                            const targetElement = document.querySelector(hash);
                         
                         if (targetElement) {
-                            // Wrapping in a setTimeout fixes issues where fixed headers interfere with scrollIntoView
-                            setTimeout(() => {
-                                targetElement.scrollIntoView({
-                                    behavior: 'smooth', 
-                                    block: 'start'
-                                });
-                            }, 10);
+                            // UPDATED: Changed behavior to 'smooth'
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth', 
+                                block: 'start'
+                            });
                         }
                     }
                 });
@@ -1121,7 +1167,7 @@
                     }
                 );
                 
-                // 2. RE-ADDED WATERMARK LAYER (guaranteed no text, slightly darker grey color for subtle contrast)
+                // 2. RE-ADDED WATERMARK LAYER (guaranteed no text, slightly darker grey for subtle contrast)
                 textureLoader.load(patentDiagramUrl, 
                     // Callback function when the texture is loaded
                     function(texture) {
@@ -1226,3 +1272,4 @@
     </script>
 </body>
 </html>
+

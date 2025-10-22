@@ -382,20 +382,8 @@
         }
 
         /* Custom styling for the CLO box to keep it distinct */
-        .clo-box {
-            background-color: var(--procore-black) !important;
-            color: var(--procore-light-text) !important;
-            border-left: 6px solid var(--procore-light-text) !important;
-            border-top: none !important;
-            max-width: 300px; /* Keep CLO box size constrained */
-            justify-content: space-between !important; /* Restore vertical spacing for CLO */
-        }
-        .clo-box h3 { color: var(--procore-light-text) !important; }
-        .clo-box:hover {
-            background-color: #1a1a1a !important;
-            transform: translateY(-5px); 
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4); 
-        }
+        /* REMOVED .clo-box styles to match direct report cards */
+        
         .assistant-box {
             background-color: var(--procore-stone);
             border-top: 4px solid var(--procore-orange);
@@ -611,8 +599,8 @@
                             <!-- Wrapper for CLO Box and Assistant -->
                             <div class="flex items-start justify-center w-full max-w-4xl space-x-4">
                                 
-                                <!-- CLO Box -->
-                                <div class="p-4 rounded-lg shadow-xl team-member-box clo-box flex-shrink-0">
+                                <!-- CLO Box (Now matching Direct Report Style) -->
+                                <div class="p-4 rounded-lg shadow-xl team-member-box flex-shrink-0">
                                     <img 
                                         class="profile-pic" 
                                         src="https://s27.q4cdn.com/467206001/files/images/mgmt/about_leadership_bensinger.jpg" 
@@ -620,10 +608,12 @@
                                         onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
                                     >
                                     <div class="initials-placeholder hidden">BS</div>
-                                    <h3 class="font-bold">Ben Singer</h3>
-                                    <p class="text-sm font-light text-white/80">Chief Legal Officer (CLO)</p>
-                                    <!-- UPDATED: Ben's Location -->
-                                    <p class="text-xs text-white/80">US - California - Carpinteria 📌</p> 
+                                    <h3 class="font-semibold">Ben Singer</h3>
+                                    <!-- Role uses the .title style for orange text -->
+                                    <p class="title">Chief Legal Officer (CLO)</p> 
+                                    <!-- Location uses the .location style -->
+                                    <p class="location">US - California - Carpinteria 📌</p>
+                                    <!-- REMOVED: Added a consistent Portal Button for the CLO Office -->
                                 </div>
                                 
                                 <!-- Connection line (vertical) from CLO to Assistant is removed for direct side-by-side display -->
@@ -936,7 +926,7 @@
 
                     // Hide the vertical/horizontal lines (structure) if a search is active and nothing matches
                     const structureElements = teamContent.querySelectorAll('.flex.justify-center');
-                    const cloBox = teamContent.querySelector('.clo-box');
+                    const cloBox = teamContent.querySelector('.team-member-box:not(.assistant-box)');
                     const assistantBox = teamContent.querySelector('.assistant-box');
 
                     if (lowerCaseQuery !== '') {

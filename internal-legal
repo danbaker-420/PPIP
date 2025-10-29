@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LRC Internal Library</title>
+    <title>LRC Information Library</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Font Awesome for the caret icon in the dropdowns -->
@@ -549,10 +549,10 @@
         <!-- FIXED NAVIGATION (Table of Contents) -->
         <nav id="fixed-nav" class="p-2 shadow-lg">
             <ul class="flex flex-wrap gap-2 justify-center md:justify-start">
-                <!-- UPDATED NAVIGATION LINKS -->
+                <!-- UPDATED NAVIGATION LINKS - ORDER CHANGED -->
                 <li><a href="#about-us" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Onboarding & Ongoing</a></li>
-                <li><a href="#internal-resources-management" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Internal Resources Management</a></li>
                 <li><a href="#expensing-spend" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Expensing & Spend Requests</a></li>
+                <li><a href="#internal-resources-management" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Internal Resources Management</a></li>
                 <li><a href="#collaboration-section" class="px-4 py-1 rounded-full text-sm font-semibold hover:bg-black/20 transition text-white">Collaboration</a></li>
             </ul>
         </nav>
@@ -754,84 +754,7 @@
                 </div>
             </section>
 
-            <!-- SECTION 2: INTERNAL RESOURCES MANAGEMENT (Team Removed) -->
-            <section id="internal-resources-management">
-                <h2 class="collapsible searchable-item" data-target="team-content">
-                    Internal Resources Management
-                    <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
-                </h2>
-                <div id="team-content" class="content-section">
-                    
-                    <!-- UPDATED: Main grid uses lg:grid-cols-3 -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 searchable-item">
-                        
-                        <!-- -------------------- CAREER DEVELOPMENT & LEARNING (RESTRUCTURED TO 3 COLUMNS) -------------------- -->
-                        
-                        <!-- Column 1: Attorney Roles -->
-                        <div class="resource-group-box">
-                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">⚖️ Attorney Career Guides</h4>
-                            <div class="space-y-2 text-sm">
-                                <!-- All links below already have link-style class -->
-                                <a class="link-style" href="https://docs.google.com/presentation/d/1A9I1A_tT2YldzLZNpkhKTGEHV94wIwQ8Qf0ovt_mLbw/edit#slide=id.g22178beed36_0_0" target="_blank" rel="noopener noreferrer">LRC Career Maps: Counsel</a>
-                                <a class="link-style" href="https://docs.google.com/document/d/1SQ0jpSR0Da8yuaAfBmNMrpANb65E-S6O/edit#heading=h.htg85c4s0ojl" target="_blank" rel="noopener noreferrer">Competency Guide: Counsel Roles</a>
-                            </div>
-                        </div>
-
-                        <!-- Column 2: Non-Attorney Roles (RENAMED) -->
-                        <div class="resource-group-box">
-                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">💼 Non-Attorney Career Guides</h4>
-                            <div class="space-y-2 text-sm">
-                                <!-- All links below already have link-style class -->
-                                <a class="link-style" href="https://docs.google.com/presentation/d/1d0TSxxWPXEYfEkETFCXIlvBlrJ930TBZWgVSZZzzmc/edit?slide=id.gb0f7b36baa_0_2394#slide=id.gb0f7b36baa_0_2394" target="_blank" rel="noopener noreferrer">LRC Career Maps: Support & Legal Ops</a>
-                                <a class="link-style" href="https://docs.google.com/document/d/17hT_NN4v8eqRpJM6mF4H2EfRdhwZhciA/edit" target="_blank" rel="noopener noreferrer">Competency Guide: Support & Legal Ops Roles</a>
-                            </div>
-                        </div>
-
-                        <!-- Column 3: General Development & Performance (MOVED & UPDATED) -->
-                        <div class="resource-group-box">
-                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">📈 General Development & Performance</h4>
-                            <div class="space-y-2 text-sm">
-                                <!-- All links below already have link-style class -->
-                                <a class="link-style" href="https://docs.google.com/document/d/1TdPks4HpkXqjjx4E_TpDclo50j4zKEHqE18M8nul290/edit" target="_blank" rel="noopener noreferrer">LRC Learning & Development Guidelines</a>
-                                
-                                <a class="link-style" href="https://www.linkedin.com/learning/" target="_blank" rel="noopener noreferrer">LinkedIn Learning</a>
-                                <a class="link-style" href="https://www.pli.edu/programs/sec-reporting--fasb-forum-for-mid-sized--smaller-companies?t=live&tCode=RPX3_ADWRD&gclid=Cj0KCQjw0bunBhD9ARIsAAZl0E3ECEw0JL9wSORGQJLWXn7ha9LtK1nmmCsiXQ8uYFmfliuAmbTLu870aAkjZEALw_wcB" target="_blank" rel="noopener noreferrer">Practising Law Institute (PLI)</a>
-                                <a class="link-style" href="https://thecore.procore.com/pac/career_performance/career__performance/performance_engagement" target="_blank" rel="noopener noreferrer">Performance Engagement</a>
-                                <a class="link-style" href="https://thecore.procore.com/build_your_career" target="_blank" rel="noopener noreferrer">Build Your Career</a>
-                                <a class="link-style" href="https://docs.google.com/presentation/d/1R3Wjl2q7dnSOXZu1sY3CoekhRa7fj9LvuXj4qMX4Vlo/edit#slide=id.p1" target="_blank" rel="noopener noreferrer">MSS Walking Deck for Manager</a>
-                            </div>
-                        </div>
-                        
-                        <!-- -------------------- CONTINGENT WORKFORCE MANAGEMENT (CWM) (SPLIT INTO TWO SECTIONS) -------------------- -->
-                        
-                        <!-- NEW SECTION: FTE Management (1 column) -->
-                        <div class="resource-group-box">
-                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">👤 FTE Management</h4>
-                            <div class="space-y-2 text-sm">
-                                <!-- All links below already have link-style class -->
-                                <a class="link-style" href="https://docs.google.com/document/d/1CGnChvk4pjHC0jIpSYV8AnIrVv47bW0PGga-zZA_KSQ/edit" target="_blank" rel="noopener noreferrer">FTE Onboarding / Offboarding Guidelines</a>
-                            </div>
-                        </div>
-
-                        <!-- CWM SECTION: Remaining Contractor/ALSP Links (2 columns) -->
-                        <div class="resource-group-box lg:col-span-2">
-                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🤝 Contingent Workforce Management (CWM)</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
-                                <!-- All links below already have link-style class -->
-                                <a class="link-style" href="https://docs.google.com/document/d/13bZBnwPlBREFA3LdP-4l4eDh0CEB2pC6C93BVI8FrEk/edit" target="_blank" rel="noopener noreferrer">ALSP Onboarding / Offboarding Workflow</a>
-                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/114/group/458/create/5005" target="_blank" rel="noopener noreferrer">Manager ALSP Onboarding Intake Form</a>
-                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/31/group/2574/create/2545" target="_blank" rel="noopener noreferrer">Contractor Extension</a>
-                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/38/group/283/create/1275" target="_blank" rel="noopener noreferrer">IT Service Desk - Contractor Onboarding (ops only)</a>
-                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/38/group/283/create/1731" target="_blank" rel="noopener noreferrer">IT Service Desk - Contractor Offboarding (ops only)</a>
-                                <a class="link-style" href="https://docs.google.com/document/d/1Hl7vE3MJwPBdDWm3xN9n4Zsu3R91KbVW4E89aFSTSek/edit" target="_blank" rel="noopener noreferrer">Contractor Onboarding (email from IT)</a>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#fixed-nav" class="back-to-top">Back to Top &uarr;</a>
-                </div>
-            </section>
-
-            <!-- SECTION 4: EXPENSING & SPEND REQUESTS (New Section) -->
+            <!-- SECTION 4: EXPENSING & SPEND REQUESTS (New Section) - MOVED UP TO SECOND POSITION -->
             <section id="expensing-spend">
                 <h2 class="collapsible searchable-item" data-target="expensing-content">
                     Expensing & Spend Requests
@@ -885,6 +808,83 @@
                             </div>
                         </div>
 
+                    </div>
+                    <a href="#fixed-nav" class="back-to-top">Back to Top &uarr;</a>
+                </div>
+            </section>
+            
+            <!-- SECTION 2: INTERNAL RESOURCES MANAGEMENT (Team Removed) - MOVED DOWN TO THIRD POSITION -->
+            <section id="internal-resources-management">
+                <h2 class="collapsible searchable-item" data-target="team-content">
+                    Internal Resources Management
+                    <i class="ph-minus-circle-fill text-2xl transition-transform" data-icon></i>
+                </h2>
+                <div id="team-content" class="content-section">
+                    
+                    <!-- UPDATED: Main grid uses lg:grid-cols-3 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 searchable-item">
+                        
+                        <!-- -------------------- CAREER DEVELOPMENT & LEARNING (RESTRUCTURED TO 3 COLUMNS) -------------------- -->
+                        
+                        <!-- Column 1: Attorney Roles -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">⚖️ Attorney Career Guides</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/presentation/d/1A9I1A_tT2YldzLZNpkhKTGEHV94wIwQ8Qf0ovt_mLbw/edit#slide=id.g22178beed36_0_0" target="_blank" rel="noopener noreferrer">LRC Career Maps: Counsel</a>
+                                <a class="link-style" href="https://docs.google.com/document/d/1SQ0jpSR0Da8yuaAfBmNMrpANb65E-S6O/edit#heading=h.htg85c4s0ojl" target="_blank" rel="noopener noreferrer">Competency Guide: Counsel Roles</a>
+                            </div>
+                        </div>
+
+                        <!-- Column 2: Non-Attorney Roles (RENAMED) -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">💼 Non-Attorney Career Guides</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/presentation/d/1d0TSxxWPXEYfEkETFCXIlvBlrJ930TBZWgVSZZzzmc/edit?slide=id.gb0f7b36baa_0_2394#slide=id.gb0f7b36baa_0_2394" target="_blank" rel="noopener noreferrer">LRC Career Maps: Support & Legal Ops</a>
+                                <a class="link-style" href="https://docs.google.com/document/d/17hT_NN4v8eqRpJM6mF4H2EfRdhwZhciA/edit" target="_blank" rel="noopener noreferrer">Competency Guide: Support & Legal Ops Roles</a>
+                            </div>
+                        </div>
+
+                        <!-- Column 3: General Development & Performance (MOVED & UPDATED) -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">📈 General Development & Performance</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/document/d/1TdPks4HpkXqjjx4E_TpDclo50j4zKEHqE18M8nul290/edit" target="_blank" rel="noopener noreferrer">LRC Learning & Development Guidelines</a>
+                                
+                                <a class="link-style" href="https://www.linkedin.com/learning/" target="_blank" rel="noopener noreferrer">LinkedIn Learning</a>
+                                <a class="link-style" href="https://www.pli.edu/programs/sec-reporting--fasb-forum-for-mid-sized--smaller-companies?t=live&tCode=RPX3_ADWRD&gclid=Cj0KCQjw0bunBhD9ARIsAAZl0E3ECEw0JL9wSORGQJLWXn7ha9LtK1nmmCsiXQ8uYFmfliuAmbTLu870aAkjZEALw_wcB" target="_blank" rel="noopener noreferrer">Practising Law Institute (PLI)</a>
+                                <a class="link-style" href="https://thecore.procore.com/pac/career_performance/career__performance/performance_engagement" target="_blank" rel="noopener noreferrer">Performance Engagement</a>
+                                <a class="link-style" href="https://thecore.procore.com/build_your_career" target="_blank" rel="noopener noreferrer">Build Your Career</a>
+                                <a class="link-style" href="https://docs.google.com/presentation/d/1R3Wjl2q7dnSOXZu1sY3CoekhRa7fj9LvuXj4qMX4Vlo/edit#slide=id.p1" target="_blank" rel="noopener noreferrer">MSS Walking Deck for Manager</a>
+                            </div>
+                        </div>
+
+                        <!-- -------------------- CONTINGENT WORKFORCE MANAGEMENT (CWM) (SPLIT INTO TWO SECTIONS) -------------------- -->
+                        
+                        <!-- NEW SECTION: FTE Management (1 column) -->
+                        <div class="resource-group-box">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">👤 FTE Management</h4>
+                            <div class="space-y-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/document/d/1CGnChvk4pjHC0jIpSYV8AnIrVv47bW0PGga-zZA_KSQ/edit" target="_blank" rel="noopener noreferrer">FTE Onboarding / Offboarding Guidelines</a>
+                            </div>
+                        </div>
+
+                        <!-- CWM SECTION: Remaining Contractor/ALSP Links (2 columns) -->
+                        <div class="resource-group-box lg:col-span-2">
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🤝 Contingent Workforce Management (CWM)</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
+                                <!-- All links below already have link-style class -->
+                                <a class="link-style" href="https://docs.google.com/document/d/13bZBnwPlBREFA3LdP-4l4eDh0CEB2pC6C93BVI8FrEk/edit" target="_blank" rel="noopener noreferrer">ALSP Onboarding / Offboarding Workflow</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/114/group/458/create/5005" target="_blank" rel="noopener noreferrer">Manager ALSP Onboarding Intake Form</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/31/group/2574/create/2545" target="_blank" rel="noopener noreferrer">Contractor Extension</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/38/group/283/create/1275" target="_blank" rel="noopener noreferrer">IT Service Desk - Contractor Onboarding (ops only)</a>
+                                <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/38/group/283/create/1731" target="_blank" rel="noopener noreferrer">IT Service Desk - Contractor Offboarding (ops only)</a>
+                                <a class="link-style" href="https://docs.google.com/document/d/1Hl7vE3MJwPBdDWm3xN9n4Zsu3R91KbVW4E89aFSTSek/edit" target="_blank" rel="noopener noreferrer">Contractor Onboarding (email from IT)</a>
+                            </div>
+                        </div>
                     </div>
                     <a href="#fixed-nav" class="back-to-top">Back to Top &uarr;</a>
                 </div>
@@ -1288,3 +1288,4 @@
     </script>
 </body>
 </html>
+

@@ -773,8 +773,8 @@
                             <div class="grid grid-cols-1 gap-2 text-sm">
                                 <!-- All links below already have link-style class -->
                                 <a class="link-style" href="https://thecore.procore.com/pac/finance__procurement/finance__purchasing/global_travel__expense_guidelines" target="_blank" rel="noopener noreferrer">Global Travel & Expense Guidelines</a>
-                                <a class="link-style" href="https://thecore.procore.com/pac/health_wellness_benefits/reimbursements/cell_phone_smart_phone_reimbursement" target="_blank" rel="noopener noreferrer">Cell Phone/Smart Phone Reimbursement Policy</a>
-                                <a class="link-style" href="https://thecore.procore.com/pac/perks_reimbursements/perks__reimbursements/monthly_internet_reimbursement_program_details" target="_blank" rel="noopener noreferrer">Internet Reimbursement Policy</a>
+                                
+                                <!-- REMOVED: Internet Reimbursement Policy -->
                             </div>
                         </div>
 
@@ -784,7 +784,7 @@
                             <div class="space-y-2 text-sm">
                                 <!-- All links below already have link-style class -->
                                 <a class="link-style" href="https://procore.igloocommunities.com/resources/perks__reimbursements/procore_perks" target="_blank" rel="noopener noreferrer">Procore Perks Program Overview</a>
-                                <a class="link-style" href="https://docs.google.com/spreadsheets/d/1WF5XfV_-Ttt9y28YVzKXrX77aMxNcBKU677FQqfoX2s/" target="_blank" rel="noopener noreferrer">Procore Perks - Quarterly Deadlines and Monthly Payout Schedule</a>
+                                <!-- REMOVED: Procore Perks - Quarterly Deadlines and Monthly Payout Schedule -->
                             </div>
                         </div>
 
@@ -793,18 +793,21 @@
                         <div class="resource-group-box">
                             <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🛒 Spending & Purchasing</h4>
                             <div class="space-y-2 text-sm">
-                                <!-- All links below already have link-style class -->
-                                <a class="link-style" href="https://thecore.procore.com/pac/finance__procurement/finance__purchasing/procore_plastic_card_user_manual" target="_blank" rel="noopener noreferrer">Procore Plastic Card Application</a>
+                                <!-- EDITED: Changed link text from "Procore Plastic Card Application" to "Procore Plastic Card User Manual" -->
+                                <a class="link-style" href="https://thecore.procore.com/pac/finance__procurement/finance__purchasing/procore_plastic_card_user_manual" target="_blank" rel="noopener noreferrer">Procore Plastic Card User Manual</a>
                                 <a class="link-style" href="https://docs.google.com/presentation/d/13SYXho7p5RjwArsKbOBIXhgrUaaPTU_aXE-4YzkNKf0/present?slide=id.p" target="_blank" rel="noopener noreferrer">Overview of How to Buy Things</a>
                                 <a class="link-style" href="https://procoretech.atlassian.net/servicedesk/customer/portal/114/group/458/create/5004" target="_blank" rel="noopener noreferrer">Spend Request Form</a>
                             </div>
                         </div>
                         
-                        <!-- Subcategory 4: Coupa Support (Now occupies all 3 columns below the others) -->
+                        <!-- Subcategory 4: Concur Support (Now occupies all 3 columns below the others) -->
                         <div class="resource-group-box lg:col-span-3">
-                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🙋 Coupa Support</h4>
+                            <!-- UPDATED: Changed from Coupa Support to Concur Support -->
+                            <h4 class="text-base font-bold text-gray-800 mb-3 border-b pb-1 border-gray-300">🙋 Concur Support</h4>
+                            <!-- EDITED: Removed text-center from parent div to left-align the button -->
                             <div class="space-y-2 text-sm">
-                                <a class="link-style block font-semibold text-lg" href="https://procoretech.atlassian.net/servicedesk/customer/portal/24/create/3704" target="_blank" rel="noopener noreferrer">Need Help? Create a ticket here!</a>
+                                <!-- EDITED: Changed 'sm:w-80' to 'sm:w-64' for smaller desktop width, and 'text-lg' to 'text-base' for smaller font -->
+                                <a class="inline-block w-full sm:w-64 text-center py-3 px-6 rounded-lg bg-[#ff5200] text-white font-bold text-base shadow-md transition duration-200 hover:bg-[#e04400] hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-orange-300" href="https://procoretech.atlassian.net/servicedesk/customer/portal/24/create/3704" target="_blank" rel="noopener noreferrer">Need Help? Create a ticket here!</a>
                             </div>
                         </div>
 
@@ -1288,4 +1291,3 @@
     </script>
 </body>
 </html>
-
